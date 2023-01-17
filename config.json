@@ -1,0 +1,6 @@
+{
+    "app_port": 3000,
+    "db_host": "localhost",
+    "db_user": "root",
+    "db_password": ""
+}

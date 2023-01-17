@@ -1,0 +1,1 @@
+exports.saltRounds = 10 
