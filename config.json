@@ -2,5 +2,7 @@
     "app_port": 3000,
     "db_host": "localhost",
     "db_user": "root",
-    "db_password": ""
+    "db_password": "",
+
+    "theme": "Isis2k23"
 }
