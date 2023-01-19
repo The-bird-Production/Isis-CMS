@@ -1,5 +1,6 @@
 
 const env = require('../var')
+const theme = require('../themes.json')
 
 exports.admin = (req, res ) => {
   
@@ -9,5 +10,14 @@ exports.admin = (req, res ) => {
         })
     } else {
         res.redirect('/')
+    }
+}
+
+exports.page = (req, res ) => {
+    if (req.session.role === 'admin' ) {
+        res.render(env.dirname + '/Admin/page', {
+            title: 'Isis CMS', 
+            theme:  theme.path
+        })
     }
 }
