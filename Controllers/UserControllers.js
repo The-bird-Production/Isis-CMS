@@ -32,6 +32,7 @@ exports.connect = (req, res ) => {
                         req.session.isLoged = true
                         req.session.userID = formed.id
                         res.redirect('/profil')
+                        console.log(req.session)
 
                         
                     }
@@ -53,7 +54,7 @@ exports.connect = (req, res ) => {
 exports.create = (req, res ) => {
 
     bcrypt.hash(req.body.password, session.saltRounds, (err, hash) => {
-        if (err ) {}
+        if (err) {}
        let data = {
         email: req.body.email,
         username: req.body.username,

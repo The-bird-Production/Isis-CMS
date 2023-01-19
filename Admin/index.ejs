@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | <%= title %> </title>
+    <link rel="stylesheet" href="/asset/css/nav.css">
+    <link rel="stylesheet" href="/asset/css/main.css">
+
+  
+
+</head>
+<body>
+    <section class="main">
+
+    
+    <div class="nav">
+        <h1 class="title">Isis CMS <br>| Admin</h1>
+
+        <div class="item"><a href=""><i class="fa-solid fa-house"> </i> Dashboard</a></div>
+        
+        <div class="item"><a href=""><i class="fa-solid fa-user"> </i> Utilisateurs</a></div>
+        <div class="item"><a href=""><i class="fa-solid fa-file"> </i></i> Page</a></div>
+        <div class="item"><a href=""><i class="fa-solid fa-diamond-turn-right"></i></i> Redirection</a></div>
+        <div class="item"><a href=""><i class="fa-regular fa-newspaper"></i>  Article</a></div>
+        <div class="item"><h3>Extensions</h3></div>
+        <div class="item"><a href=""><i class="fa-solid fa-paint-roller"></i>Thèmes</a></div>
+        <div class="item"><a href=""><i class="fa-solid fa-puzzle-piece"></i></i> Plugins</a></div>
+
+    </div>
+    <div class="content">
+        <h1 class="center title-1">Bonjour ${Utilisateur}</h1>
+        <br><br>
+
+        <div class="stats-flex">
+
+            <div class="user-stats flexitem">
+                <h1>
+                    <br>
+                    <i class="fa-solid fa-user"> </i> Il y a actuellement : ${user} Utilisateurs
+                    <br>
+                    
+                </h1>
+            </div>
+            <div class="page-stats flexitem">
+                <h1>
+                    <i class="fa-solid fa-file "></i> Il y a actuellement : ${page} pages
+                    
+                </h1>
+            </div>
+            <div class="article-stats flexitem"> 
+                <h1>
+                    <i class="fa-regular fa-newspaper"></i> Il y a actuellement : ${article} articles
+                </h1>
+            </div>
+
+        </div>
+        
+    </div>
+
+</section>
+   
+    
+</body>
+</html>

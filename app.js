@@ -17,6 +17,9 @@ app.set('view engine', 'ejs');
 //Routes
 const Main_Routes = require('./Routes/main_routes'); 
 const User_Routes = require('./Routes/userRoutes')
+const Admin_Routes = require('./Routes/AdminRoutes')
+
+app.use('/asset', express.static(__dirname + '/Admin/asset'))
 
 
 app.use(session({
@@ -28,6 +31,7 @@ app.use(session({
 }))
 app.use('/', Main_Routes)
 app.use('/user', User_Routes)
+app.use('/admin', Admin_Routes)
 app.listen(config.app_port, () => {
     console.log("Serveur listening on http://localhost:"+config.app_port)
 })
