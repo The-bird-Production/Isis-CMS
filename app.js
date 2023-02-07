@@ -20,7 +20,7 @@ const User_Routes = require('./Routes/userRoutes')
 const Admin_Routes = require('./Routes/AdminRoutes')
 
 app.use('/asset', express.static(__dirname + '/Admin/asset'))
-app.use('/editor', express.static(__dirname + '/Editor'))
+
 app.use('/Themes',express.static(__dirname + '/Themes'))
 
 

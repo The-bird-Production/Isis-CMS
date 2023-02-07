@@ -11,8 +11,9 @@ const UserControllers = require('../Controllers/UserControllers')
 //login
 router.get('/login', (req, res) => {
     res.render(themes.login_path, {
-        title: 'Isis CMS'
-    })
+        title: 'Isis CMS',
+        theme_header : themes.header,
+        })
     
 })
 
@@ -23,7 +24,8 @@ router.post('/login', UserControllers.connect )
 
 router.get('/create', (req, res ) => {
     res.render(themes.create_path, {
-        title: 'Isis CMS '
+        title: 'Isis CMS ',
+        theme_header : themes.header,
     })
 })
 
