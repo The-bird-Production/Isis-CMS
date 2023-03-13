@@ -2,7 +2,7 @@ const env = require("../var");
 const theme = require("../themes.json");
 const db = require("../system/db");
 const get = require("../system/getdata");
-const system_data = require('../system/ControlData.js');
+const system_data = require('../system/ControlData');
 
 const path = require("path");
 
