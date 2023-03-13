@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Au pied du Morclan</title>
+    <link rel="stylesheet" href="/asset/css/admin.css">
+    <%- include('../Admin/asset/components/header') %> 
+</head>
+<body>
+    <%- include('../Admin/asset/components/nav') %> 
+
+    
+<div class="container mt-5 pt-5">
+    <div class="card card-body">
+        <form action="/admin/pics.send" method="post" enctype="multipart/form-data")> 
+            <input type="file" name="pics" id="pics" accept="image/*" class="btn btn-primary"> <br><br>
+            <label for="pic_name">URL: https://aupieddumorclan.fr/public/upload/</label><input type="text" name="pic_name">.png <br><br>
+            <label for="title">Titre: </label> <input type="text" name="title">
+            <label for="alt">Courte description</label> <input type="text" name="alt"><br><br>
+            <input type="submit" class="btn btn-primary">
+        </form>
+
+    </div>
+   
+
+</div>
+   
+
+    <br><br>
+    <center><h1>Vos images : </h1></center>
+
+    <% img_data.forEach(img_data => { %>
+
+        <div class="img_data article_card">
+            <img src="<%= img_data.path %> " alt="<%= img_data.alt %> " style="width: 150px; height: auto;">
+            <h2>Titre : <%= img_data.title %> </h2>
+            <h2>Courte description : <%= img_data.alt %> </h2>
+            <h2>Url : <a href="https://aupieddumorclan.fr<%= img_data.path %> ">https://aupieddumorclan.fr<%= img_data.path %></a>  </h2>
+            <h2>Date de publication : <%= img_data.date %> </h2>
+
+            <br><br>
+            <a href="/admin/pics.delete/?path=<%= img_data.path %> " style="color: red;">Supprimer</a>
+
+        </div>
+        <br><br>
+     
+    <% }) %>
+    
+</body>
+</html>

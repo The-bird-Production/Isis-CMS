@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Au pied du Morclan</title>
+    
+    <%- include('../Admin/asset/components/header') %> 
+</head>
+<body>
+    <%- include('../Admin/asset/components/nav') %> 
+
+    
+   
+
+    <br><br>
+    <center class="pt-5 mt-5"><h1>Utilisateurs actuel : </h1></center>
+
+   <div class="container ">
+    <div class="row">
+        <% user.forEach(user => { %>
+         <div class="col-12 pt-3">
+            <div class="card card-body">
+                <h3>Nom d'utilisateur : <%= user.username %> </h3>
+                <h3>Email : <%= user.email %> </h3>
+                <h3>Rôle : <%= user.role %> </h3>
+
+            </div>
+
+         </div>
+         
+        <% }) %>
+
+    </div>
+
+   </div>
+    
+</body>
+</html>

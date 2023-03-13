@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Au pied du Morclan</title>
+    <link rel="stylesheet" href="/asset/css/admin.css">
+    <%- include('../Admin/asset/components/header') %> 
+</head>
+<body>
+    <%- include('../Admin/asset/components/nav') %> 
+
+    
+<div class="container mt-5 pt-5">
+    <h1>Gestion des redirections</h1>
+    <div class="card card-body">
+        <form action="/admin/redirect/send" method="post")> 
+           <div class="mb-3">
+            <label for="url_redirect" class="form-label">URL de la redirection : https://aupieddumorclan.fr/r/</label>
+            <input type="text" required name="url" id="url_redirect" class="form-control">
+
+           </div>
+           <div class="mb-3">
+            <label for="redirect" class="form-label">Url à rediriger : </label>
+            <input type="text" required name="redirect" id="redirect" placeholder="Ex : https://youtube.com/" class="form-control">
+
+           </div>
+           <div class="mb-3">
+            <input type="submit" value="Envoyer" class="btn btn-primary">
+
+           </div>
+        </form>
+
+    </div>
+   
+
+</div>
+   
+
+    <br><br>
+    <center><h1>Vos redirections : </h1></center>
+<div class="container row p-5 gap-3">
+    <% redirect.forEach(redirect => { %>
+
+        <div class="card card-body col-6 p-3">
+            
+            <h2>Url de la redirection : https://aupieddumorclan.fr/r/<%= redirect.url %> </h2>
+            <h2>Url redirigé : <%= redirect.redirect %> </h2>
+
+            <br><br>
+            <a href="/admin/redirect/remove/?url=<%= redirect.url %> " class="text-danger">Supprimer</a>
+
+        </div>
+        <br><br>
+     
+    <% }) %>
+
+</div>
+    
+    
+</body>
+</html>

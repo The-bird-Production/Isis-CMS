@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %> </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="/asset/css/style.css">
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<link rel="shortcut icon" href="/asset/img/icon/AU PIED DU MORCLAN.png" type="image/x-icon">
+
+
+
+<meta name="description" content="Location d'un appartement de 58  ㎡ 6 personnes à Châtel. Plein centre dans la résidence les rhododendrons au pied de la télécabine ">
+
+
+
+</head>
+
+<script type="text/javascript"> 
+
+
+ 
+function save() {
+  
+  fetch('/admin/modify/index/ ', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'text/html'
+  },
+  body: document.getElementById('body').innerHTML
+  });
+  
+  
+
+}
+
+
+</script> 
+
+<body>
+  
+<section class="body" id="body" contenteditable="true">
+
+
+<header>
+ 
+  
+    
+  <%- body %> 
+   
+    
+   
+</section>
+<button onclick="save()">Sauvegarder les changements </button>
+
+
+  
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+
+ 
+
+<script src="https://aupieddumorclan.fr/asset/js/jquery.js"></script>
+
+
+
+
+
+
+
+
+
+
+</html>

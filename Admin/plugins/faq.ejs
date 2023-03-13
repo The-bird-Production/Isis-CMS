@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Au pied du Morclan</title>
+    <%- include('../../Admin/asset/components/header') %>
+    
+</head>
+<body >
+    <%- include('../../Admin/asset/components/nav') %>
+   
+    <div class="container mt-5 pt-5">
+        <h1>Ajouter des FAQ</h1><br>
+        <div class="card card-body flex-direction-column">
+            <form action="/admin/faq/add" method="post" class="faq">
+                Question : <input type="text" name="question"  > <br><br>
+                Réponse : <input type="text" name="response" > <br><br>
+               Ordre : <input type="number" name="ordre" ><br><br>
+                <input type="submit" value="Envoyer" class="btn btn-primary">
+    
+            </form>
+
+        </div>
+        
+
+    </div>
+
+    
+    
+<div class="container row  gap-3 pt-3">
+    <h1 >Vos FAQ : </h1>
+    <% faq.forEach(faq => { %>
+        <div class="col-4 card card-body">
+           <form action="/admin/faq/modify" method="post">
+            <input type="hidden" value="<%= faq.id %>" name="id">
+            Question : <input type="text" id="question" placeholder="Question" value="<%= faq.question %> " name="question"><br><br>
+           Réponse : <input type="text" id="reponse" placeholder="Réponse" value="<%= faq.reponse %> " name="reponse"><br><br>
+            ordre : <input type="text" id="ordre" placeholder="Ordre" value="<%= faq.ordre %> " name="ordre"><br><br>
+            <input type="submit" value="Modifier" placeholder="Modifier" class="btn btn-primary">
+           
+
+
+           </form>
+
+        </div>
+        <br><br>
+     
+    <% }) %>
+
+</div>
+    
+    
+
+
+    
+    
+</body>
+</html>

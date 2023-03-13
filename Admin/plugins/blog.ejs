@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration Blog | Isis CMS</title>
+    <%- include('../../Admin/asset/components/header') %> 
+</head>
+<body>
+    <%- include('../../Admin/asset/components/nav') %> 
+    
+
+   
+        <div class="container mt-5">
+            <h1>Gestion des catégories</h1>
+            <div class="row">
+                <div class="col-4">
+                    <div class="card card-body">
+                        <h2>Vos catégories actuelles</h2>
+                        <form action="#">
+                           
+                            <select name="categorie" id="categorie">
+                                <% categorie.forEach(categorie => { %>
+                                    <option value="<%= categorie.name %> "><%= categorie.name %></option>
+                
+                                 
+                                <% }) %>
+                            </select>
+                            
+                      </form>
+
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                        <h2>Ajouter une categorie</h2>
+
+                    <form action="/admin/blog/categorie/add" method="get">
+
+                        <label for="name">Nom : &nbsp;</label><input type="text" name="name"><br><br>
+                        <input type="submit" placeholder="Enregistrer" class="btn btn-primary" >
+                    </form>
+
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <div class="card card-body">
+                        <h2>Supprimer une categorie</h2>
+                        <form action="/admin/blog/categorie/remove" method="get">
+                          
+                          <select name="name" id="categorie">
+                              <% categorie.forEach(categorie => { %>
+                                  <option value="<%= categorie.name %> "><%= categorie.name %></option>
+                  
+                               
+                              <% }) %>
+                          </select> <br><br>
+                          <input type="submit" placeholder="Supprimer" value="Supprimer" class="btn btn-danger">
+                          
+                    </form>
+
+                    </div>
+                   
+
+                </div>
+
+                <div class="col-12 text-center pt-3">
+                    <a href="/admin/blog/publish" class="btn btn-primary text-center"> Publier un article  </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+        
+
+      
+
+
+     
+
+    
+    
+
+
+
+   
+
+    
+        <div class="container row  gap-3 mt-3 mx-auto">
+            <h1 class="text-center">Derniers Articles : </h1>
+        
+        <% article.forEach(article => { %>
+          <article class="article_card card card-body pt-2 col-3 justify-content-between ">
+            
+            <h1>Titre: <%= article.title %> </h1>
+            <h3>Description: <%= article.desc %> </h3>
+            <h3>id : <%= article.id %> </h3>
+            <h3>url : <%= article.article_url %> </h3> 
+            <br>
+            <a href="/blog/article<%= article.article_url %> " class="btn btn-primary">Lire</a>
+            
+        </article>
+        
+         
+        <% }) %>
+    </div>
+
+        
+
+    
+    
+    
+    
+</body>
+</html>

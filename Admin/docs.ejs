@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration | Au pied du Morclan</title>
+    <link rel="stylesheet" href="/asset/css/admin.css">
+    <%- include('../Admin/asset/components/header') %> 
+</head>
+<body>
+    <%- include('../Admin/asset/components/nav') %> 
+
+    
+<div class="container mt-5 pt-5">
+    <div class="card card-body">
+        <form action="/admin/file.send" method="post" enctype="multipart/form-data")> 
+            <input type="file" name="file" id="pics" accept="*" class="btn btn-primary"> <br><br>
+            <label for="file_name">URL: https://aupieddumorclan.fr/public/upload/</label><input type="text" name="file_name"> <br><br>
+            
+            <input type="submit" class="btn btn-primary">
+        </form>
+
+    </div>
+   
+
+</div>
+   
+
+    <br><br>
+    <center><h1>Vos documents : </h1></center>
+<div class="container row pt-3 gap-3">
+
+
+    <% docs.forEach(docs => { %>
+
+        <div class="img_data article_card col-4 card card-body pt-3">
+            
+            <h2>Nom du fichier : <%= docs.file %> </h2>
+            
+            <h2>Url : <a href="https://aupieddumorclan.fr<%= docs.url %> ">https://aupieddumorclan.fr<%= docs.url %></a>  </h2>
+            
+
+            <br><br>
+            <a href="/admin/file.delete/?path=<%= docs.url %> " style="color: red;">Supprimer</a>
+
+        </div>
+        <br><br>
+     
+    <% }) %>
+</div>
+    
+</body>
+</html>

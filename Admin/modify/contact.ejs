@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact  | Au pied du Morclan</title>
+
+    <link rel="shortcut icon" href="/asset/img/icon/AU PIED DU MORCLAN.png" type="image/x-icon">
+    <link rel="stylesheet" href="/asset/css/style.css">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+  <meta name="description" content="Location d'un appartement de 58  ㎡ 6/8  personnes à Châtel. Plein centre dans la résidence les rhododendrons au pied de la télécabine ">
+
+
+
+
+  <script type="text/javascript"> 
+
+
+    
+    function save() {
+      
+      fetch('/admin/modify/contact/|Contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/html'
+      },
+      body: document.getElementById('body').innerHTML
+      });
+      
+      
+    
+    }
+    
+    
+    </script> 
+  
+  
+  
+      <section class="body" id="body" contenteditable="true"> 
+  
+     
+      <%- body %> 
+  </section>
+  <button onclick="save()">Sauvegarder les changements </button>
+    
+</body>
+</html>

@@ -1,0 +1,49 @@
+<nav class="navbar bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <a class="navbar-brand" href="/admin">Admin | Isis CMS</a>
+      
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Admin | Isis CMS</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/admin"> <i class="bi bi-house"></i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/user"> <i class="bi bi-person"></i> Utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/pics"><i class="bi bi-image"></i> Images</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/docs"> <i class="bi bi-file-earmark-plus-fill"></i> Documents</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/redirect"> <i class="bi bi-arrow-90deg-right"></i> Redirections</a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/page"> <i class="bi bi-journal-plus"></i>Pages</a>
+          </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Plugins
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/admin/blog">Blog</a></li>
+                <li><a class="dropdown-item" href="/admin/faq">Faq</a></li>
+                <li><a class="dropdown-item" href="/admin/newsleeter">Newsleeter</a></li>
+                
+                
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
