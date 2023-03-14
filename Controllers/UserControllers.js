@@ -25,14 +25,24 @@ exports.connect = (req, res ) => {
                         
                     }
                     if (isMatch) {
-                        req.session.userID = formed.id
+                        req.session.regenerate((err) => {
+                            // Gérez les erreurs si nécessaire
+                            if (err) {
+                              console.error(err);
+                              return res.status(500).send('Erreur de serveur');
+                            }
+                            req.session.userID = formed.id
                         req.session.username = formed.username
                         req.session.email = formed.email
                         req.session.role = formed.role
                         req.session.isLoged = true
-                        req.session.userID = formed.id
+                       
                         res.redirect('/profil')
-                        console.log(req.session)
+                        
+                        })
+                        
+                        
+                        
 
                         
                     }
