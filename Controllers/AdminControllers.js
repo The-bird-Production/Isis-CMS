@@ -1,5 +1,6 @@
 const env = require("../var");
 const theme = require("../themes.json");
+const config = require('../config.json')
 const db = require("../system/db");
 const get = require("../system/getdata");
 const system_data = require('../system/ControlData');
@@ -22,30 +23,12 @@ exports.admin = (req, res) => {
   
 };
 
-exports.modify_view = (req, res) => {
-  db.query(
-    `SELECT * FROM page WHERE url ="/${req.params.page}" `,
-    (err, result) => {
-      if (err) {
-        res.send("Une erreur est survenue ");
-        throw err;
-      }
-      if (result) {
-        let form = JSON.stringify(result);
-        let formed = JSON.parse(form);
-        res.render(env.dirname + `/Admin/modify/${req.params.page}`, {
-          body: formed[0].body,
-          title: formed[0].title,
-        });
-      }
-    }
-  );
-};
 
 exports.pics = (req, res) => {
   get.get_admin_img((img) => {
     res.render(env.dirname + "/Admin/pics", {
       img_data: img,
+      url: config.website_url 
     });
   });
 };
@@ -101,6 +84,7 @@ exports.docs = (req, res) => {
   get.get_all_docs((docs) => {
     res.render(env.dirname + "/Admin/docs", {
       docs: docs,
+      url: config.website_url 
     });
   });
 };
