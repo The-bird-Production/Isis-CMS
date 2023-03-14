@@ -4,5 +4,6 @@
     "db_user": "root",
     "db_password": "",
 
-    "theme": "Isis2k23"
+    "theme": "Isis2k23",
+    "website_url": "http://localhost:3000" 
 }
