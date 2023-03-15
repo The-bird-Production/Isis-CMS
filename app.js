@@ -70,6 +70,10 @@ app.use('/', Main_Routes)
 
 
 
+
+
 app.listen(config.app_port, () => {
     console.log(colors.blue.underline("\nServeur listening on http://localhost:"+config.app_port + '\n'))
 })
+
+module.exports = app

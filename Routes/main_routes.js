@@ -24,7 +24,7 @@ router.use((req, res, next) => {
   }
 });
 router.get('/test', (req,res) => {
-  res.send('Ok')
+  res.statusCode(200)
 })
 router.get('/r/:url', MainControllers.redirect)
 router.get("/sucess", MainControllers.sucess);
