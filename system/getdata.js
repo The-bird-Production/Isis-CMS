@@ -129,7 +129,19 @@ function get_user_page (callback_result) {
 
 exports.get_user_page = get_user_page
 
+const pluginsPath = './Plugins';
+const plugins = [];
 
+fs.readdirSync(pluginsPath).forEach(file => {
+  const plugin = require(`../${pluginsPath}/${file}`);
+  plugins.push({
+    name: plugin.info.name,
+    url: plugin.route
+  });
+});
+
+exports.plugins = plugins
+ 
 
 
 

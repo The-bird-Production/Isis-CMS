@@ -44,6 +44,9 @@
                 Plugins
               </a>
               <ul class="dropdown-menu">
+                <% plugins.forEach(plugin => { %>
+                  <li><a href="/admin<%= plugin.url %>" class="dropdown-item"><%= plugin.name %></a></li>
+                <% }); %>
                 
                 
                 

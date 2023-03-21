@@ -52,6 +52,7 @@ app.use('/Themes',express.static(__dirname + '/Themes'))
 //Plugin loading 
 
 const pluginsPath = './Plugins';
+
 fs.readdirSync(pluginsPath).forEach(file => {
 
   const plugin = require(`${pluginsPath}/${file}`);
@@ -59,6 +60,8 @@ fs.readdirSync(pluginsPath).forEach(file => {
 
   app.use(plugin.route, plugin.router);
   console.log( colors.green(' [ok] Plugin '+ plugin.info.name +  ' loaded,  version : '+ plugin.info.version +  ' \n'))
+  
+
   
 });
 

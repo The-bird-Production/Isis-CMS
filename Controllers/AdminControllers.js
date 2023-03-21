@@ -4,7 +4,7 @@ const config = require('../config.json')
 const db = require("../system/db");
 const get = require("../system/getdata");
 const system_data = require('../system/ControlData');
-
+const plugins = get.plugins
 const path = require("path");
 
 exports.admin = (req, res) => {
@@ -14,7 +14,8 @@ exports.admin = (req, res) => {
         title: "Isis CMS",
         req: req,
         user: user,
-         docs: docs
+         docs: docs, 
+         plugins : plugins
       });
 
     })
@@ -28,7 +29,8 @@ exports.pics = (req, res) => {
   get.get_admin_img((img) => {
     res.render(env.dirname + "/Admin/pics", {
       img_data: img,
-      url: config.website_url 
+      url: config.website_url ,
+      plugins: plugins
     });
   });
 };
@@ -84,7 +86,8 @@ exports.docs = (req, res) => {
   get.get_all_docs((docs) => {
     res.render(env.dirname + "/Admin/docs", {
       docs: docs,
-      url: config.website_url 
+      url: config.website_url, 
+      plugins: plugins
     });
   });
 };
@@ -130,6 +133,7 @@ exports.user = (req, res) => {
   get.get_admin_user((user) => {
     res.render(env.dirname + "/Admin/user", {
       user: user,
+      plugins: plugins
     });
   });
 };
@@ -138,6 +142,7 @@ exports.page = (req, res) => {
   get.get_all_page((page) => {
     res.render(env.dirname + "/Admin/page", {
       page: page,
+      plugins: plugins
     });
   });
 };
@@ -145,6 +150,7 @@ exports.redirect = (req, res) => {
   get.get_all_redirect((redirect) => {
     res.render(env.dirname + "/Admin/redirect", {
       redirect: redirect,
+      plugins: plugins,
     });
   });
 };
@@ -182,14 +188,17 @@ exports.redirect_remove = (req, res) => {
 exports.user_page= (req, res) => {
   get.get_user_page ((page) => {
     res.render(env.dirname + '/Admin/page', {
-      page: page
+      page: page,
+      plugins: plugins
     })
   })
 }
 exports.new_page = (req, res ) => {
   
 
-  res.render(env.dirname + '/Admin/newpage')
+  res.render(env.dirname + '/Admin/newpage', {
+    plugins: plugins
+  })
 
 }
 
@@ -224,7 +233,8 @@ exports.view_modify_user_page = (req,res) => {
       let formed = JSON.parse(formi)
       let content = formed[0]
       res.render(env.dirname + '/Admin/modify_page', {
-        content : content
+        content : content, 
+        plugins: plugins
       })
     }
   })
@@ -259,6 +269,7 @@ exports.delete_user_page = (req,res) => {
     }
   })
 }
+
 
 exports.theme_modify = (req,res) => {
 
