@@ -112,5 +112,25 @@ function get_number_of_docs (callback_result) {
 exports.get_number_of_docs = get_number_of_docs
 
 
+function get_user_page (callback_result) {
+    db.query('SELECT * FROM page WHERE type="user_page"', (err, result) => {
+        if (err) {
+            console.log(err)
+
+        }
+        if (result ) {
+            let formi = JSON.stringify(result)
+            let formed = JSON.parse(formi)
+
+            callback_result(formed)
+        }
+    })
+}
+
+exports.get_user_page = get_user_page
+
+
+
+
 
 

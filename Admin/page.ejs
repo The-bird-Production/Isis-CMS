@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration | Au pied du Morclan</title>
-    <link rel="stylesheet" href="/asset/css/admin.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrateur | Isis CMS</title>
     <%- include('../Admin/asset/components/header') %> 
-</head>
-<body>
+  <body>
     <%- include('../Admin/asset/components/nav') %> 
-
     
-<div class="container mt-5 pt-5">
-    <h1 class="p-3">Vos pages </h1>
-   
+        <div class="container pt-5 mt-5" >
+            <a href="/admin/my-page/new" class="btn btn-primary">Créer une page</a>
+            <h1 class="p-3">Vos pages :</h1>
 
-</div>
-   
-<div class="container row gap-3 p-5">
-    <% page.forEach(page => { %>
-        <div class="col-12 p-3 card card-body">
-            <h1>Titre : <%= page.title %> </h1>
-            <h1>Url : <%= page.url %> </h1>
-            <a href="/admin/modify<%= page.url %> " class="btn btn-primary">Modifier</a>
+            <% page.forEach(page => { %>
+                <div class="col-6">
+                    <div class="card card-body">
+                        <h1>Titre : <%= page.title %></h1>
+                        <h2> Url : <%= page.url %></h2>
+                        <a href="<%= page.url %>" class="btn btn-warning p-1">Voir la page</a> <br>
+                        <a href="/admin/my-page/modify<%= page.url %>" class="btn btn-success p-1">Modifier la page</a> <br>
+                        <a href="/admin/my-page/delete<%= page.url %>" class="btn btn-danger p-1">Supprimer la page </a> <br>
+    
+                    </div>
+
+                </div>
+                
+             
+            <% }) %>
+
 
         </div>
-     
-    <% }) %>
-
-</div>
-
-   
     
-</body>
+  </body>
 </html>

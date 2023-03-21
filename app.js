@@ -7,6 +7,7 @@ const fs = require('fs')
 var colors = require('colors/safe');
 
 console.log( colors.blue.underline( 'ISIS CMS STARTING \n')  );
+console.log(colors.green('Theme used : ' + config.theme + '\n'))
 const bodyParser = require('body-parser'); 
 const session = require('express-session')
 app.use(bodyParser.text({ type: 'text/html' }))
@@ -62,15 +63,7 @@ fs.readdirSync(pluginsPath).forEach(file => {
 });
 
 
-
-
 app.use('/', Main_Routes)
-
-
-
-
-
-
 
 app.listen(config.app_port, () => {
     console.log(colors.blue.underline("\nServeur listening on http://localhost:"+config.app_port + '\n'))

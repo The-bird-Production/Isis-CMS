@@ -1,11 +1,11 @@
 {
   "name": "isis-cms",
-  "version": "3.1.2",
+  "version": "3.2.0",
   "main": "app.js",
   "scripts": {
-    "test": "jest", 
-    "start": "node app.js" 
-   },
+    "test": "jest",
+    "start": "node app.js"
+  },
   "author": "Faynix-Code",
   "license": "ISC",
   "dependencies": {
@@ -32,5 +32,8 @@
   "devDependencies": {
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
+  },
+  "directories": {
+    "test": "test"
   }
 }

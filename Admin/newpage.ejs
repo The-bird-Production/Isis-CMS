@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrateur | Isis CMS</title>
+    <%- include('../Admin/asset/components/header') %> 
+  <body>
+    <%- include('../Admin/asset/components/nav') %> 
+
+    <form action="/admin/my-page/new" method="post">
+    <div class="container mt-5 pt-5">
+
+        <div class="col-6 card card-body">
+
+            
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titre de la page : </label>
+                    <input type="text" name="title" id="title" class="form-control">
+
+                </div>
+                <div class="mb-3">
+                    <label for="url">Url de la page :</label>
+                    <input type="text" placeholder="/yourpage" name="url" id="url">
+
+                </div>
+                
+
+
+
+            
+
+
+        </div>
+
+
+
+    </div>
+    <div class="container w-100 h-100 p-5">
+        <script src="https://cdn.tiny.cloud/1/75lpz4hm0dsvol63mjrqfdqcbrjsey6zewt4wpoi6eoq160r/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdn.tiny.cloud/1/75lpz4hm0dsvol63mjrqfdqcbrjsey6zewt4wpoi6eoq160r/tinymce/6/plugins.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+              selector: 'textarea',
+              plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+              images_upload_url: '/admin/upload/'
+            });
+          </script>
+        
+        
+        <textarea name="body" id="body" class="w-100 h-100"></textarea>
+
+    </div>
+    <div class="p-5">
+        <input type="submit" class="btn btn-primary " name="Publier" value="Publier">
+
+    </div>
+    
+    </form>
+    
+
+  </body>
+</html>

@@ -177,3 +177,89 @@ exports.redirect_remove = (req, res) => {
     }
   );
 };
+
+
+exports.user_page= (req, res) => {
+  get.get_user_page ((page) => {
+    res.render(env.dirname + '/Admin/page', {
+      page: page
+    })
+  })
+}
+exports.new_page = (req, res ) => {
+  
+
+  res.render(env.dirname + '/Admin/newpage')
+
+}
+
+exports.new_page_post = (req,res) => {
+  let data = {
+    url: req.body.url,
+    title: req.body.title,
+    body: req.body.body,
+    type: 'user_page'
+  }
+
+  db.query('INSERT INTO page SET ? ', data, (err, result) => {
+    if (err) {
+      res.send('Une erreur est survenue')
+      console.log('NEW ERROR AT INSERT PAGE : ' + err)
+    }
+    if (result) {
+      res.redirect(req.body.url)
+    }
+  })
+}
+
+exports.view_modify_user_page = (req,res) => {
+  db.query('SELECT * FROM page WHERE url = ' + `"/${req.params.url}"`, (err, result) => {
+    if (err) {
+      console.log('NEW ERROR AT VIEW MODIFIED PAGE')
+      res.send('Une erreur est survenue')
+
+    }
+    if (result) {
+      let formi = JSON.stringify(result)
+      let formed = JSON.parse(formi)
+      let content = formed[0]
+      res.render(env.dirname + '/Admin/modify_page', {
+        content : content
+      })
+    }
+  })
+}
+
+exports.modify_user_page = (req,res) => {
+  let data = {
+    title: req.body.title, 
+    body: req.body.body,
+    url: req.body.url
+  }
+
+  db.query('UPDATE page SET ? WHERE url = ' + `"/${req.params.url}"`, data , (err, result) => {
+    if (err) {
+      console.log('NEW ERROR AT MODIFY PAGE' + err)
+      res.send('Une erreur est survenue')
+    }
+    if (result) {
+      res.redirect('/admin/my-page/')
+    }
+  })
+}
+
+exports.delete_user_page = (req,res) => {
+  db.query('DELETE FROM page WHERE url =' + `"/${req.params.url}"`, (err, result) => {
+    if (err) {
+      console.log('CAN\'T DELETE PAGE ' + err)
+      res.send('Une erreur est survenue')
+    }
+    if (result) {
+      res.redirect('/admin/my-page/')
+    }
+  })
+}
+
+exports.theme_modify = (req,res) => {
+
+}

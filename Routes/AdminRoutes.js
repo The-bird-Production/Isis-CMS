@@ -14,6 +14,16 @@ const upload = multer({ dest: env.dirname + "/public/upload/" });
 router.get("/", securite, AdminControllers.admin);
 
 router.get("/user", securite, AdminControllers.user);
+
+//Gestion des pages 
+router.get('/my-page/', securite, AdminControllers.user_page)
+router.get('/my-page/new', securite, AdminControllers.new_page)
+router.post('/my-page/new', securite, AdminControllers.new_page_post)
+router.get('/my-page/modify/:url', securite, AdminControllers.view_modify_user_page)
+router.post('/my-page/modify/:url', securite, AdminControllers.modify_user_page)
+router.get('/my-page/delete/:url', securite, AdminControllers.delete_user_page)
+
+
 //Gestion images
 router.get("/pics", securite, AdminControllers.pics);
 
