@@ -1,8 +1,9 @@
 {
     "app_port": 3000,
     "db_host": "localhost",
-    "db_user": "root",
-    "db_password": "",
+    "db_user": "etienne",
+    "db_password": "Titi@91490",
+    "db_name": "isis",
 
     "theme": "Isis2k23",
     "website_url": "http://localhost:3000" 
