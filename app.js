@@ -4,7 +4,7 @@ const config = require('./config.json');
 const db_config = require('./config/db')
 const env = require('./var')
 const fs = require('fs')
-var colors = require('colors/safe');
+const colors = require('colors/safe');
 
 console.log( colors.blue.underline( 'ISIS CMS STARTING \n')  );
 console.log(colors.green('Theme used : ' + config.theme + '\n'))
@@ -64,6 +64,7 @@ fs.readdirSync(pluginsPath).forEach(file => {
 
   
 });
+
 
 
 app.use('/', Main_Routes)
