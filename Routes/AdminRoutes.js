@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AdminControllers = require("../Controllers/AdminControllers");
-const securite = require("../system/RoleCheking.js");
+const securite = require("../System/RoleCheking.js");
 const fs = require("fs");
 var colors = require('colors/safe');
 

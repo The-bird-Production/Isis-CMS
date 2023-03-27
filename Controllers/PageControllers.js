@@ -1,4 +1,4 @@
-const db = require('../system/db')
+const db = require('../System/db')
 const config = require('../config.json')
 const env = require('../var')
 

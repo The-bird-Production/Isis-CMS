@@ -1,9 +1,0 @@
-{
-    "name": "plugin1",
-    "route": "/test",
-
-    "controllerPath": "./controller.js",
-    "admin_controllerPath": "./controller.js",
-    "version": "1.0.0"
-    
-  }

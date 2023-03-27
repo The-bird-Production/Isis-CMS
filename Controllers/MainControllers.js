@@ -1,7 +1,7 @@
 
 const config = require("../config.json");
 const env = require("../var");
-const db = require('../system/db');
+const db = require('../System/db');
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
 
