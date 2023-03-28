@@ -63,6 +63,7 @@ router.post("/upload", securite, upload.single("file"), (req, res) => {
 
 //Updater 
 router.get('/update', securite, AdminControllers.update); 
+router.get('/update/start', securite, AdminControllers.update_start)
 //Plugin
 
 const pluginsPath = "./Plugins";

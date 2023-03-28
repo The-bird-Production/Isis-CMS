@@ -218,6 +218,6 @@ function  restart_app() {
 
 }
 
-update()
+exports.update = update
 
 

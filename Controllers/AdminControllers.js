@@ -299,3 +299,13 @@ exports.update = (req, res) => {
       
     
 };
+
+exports.update_start = (req,res) => {
+  const update = require('../System/update')
+  
+  update.update()
+  .then()
+  .catch(res.send('Une erreur c\'est produite lors de la mis à jour '))
+
+
+}
