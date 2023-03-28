@@ -45,14 +45,14 @@ exports.page = (req,res) => {
             })
 
             } else {
-                res.status(404).render(env.dirname + '/app/error/404', {
+                res.status(404).render(themes.error_path , {
                     theme_header: themes.header
                 }); 
             }
 
         }
         else {
-            res.status(404).render(env.dirname + '/app/error/404', {
+            res.status(404).render(themes.error_path, {
                 theme_header: themes.header
             });
         }

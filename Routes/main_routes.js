@@ -9,6 +9,7 @@ const MainControllers = require("../Controllers/MainControllers");
 
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
+router.get("/:page([a-z]+)", PageControllers.page);
 router.use((req, res, next) => {
   if (req.url.startsWith("/asset")) {
     const filePath = env.dirname + `/Themes/${config.theme}/` + req.url;
@@ -24,12 +25,12 @@ router.use((req, res, next) => {
   }
 });
 router.get('/test', (req,res) => {
-  res.statusCode(200)
+  res.status(200)
 })
 router.get('/r/:url', MainControllers.redirect)
 router.get("/sucess", MainControllers.sucess);
 
-router.get("/:page([a-z]+)", PageControllers.page);
+
 router.get("/", PageControllers.index);
 
 
