@@ -60,6 +60,9 @@ router.post("/upload", securite, upload.single("file"), (req, res) => {
   const imageUrl = "/public/upload/" + req.file.filename;
   res.json({ location: imageUrl });
 });
+
+//Updater 
+router.get('/update', securite, AdminControllers.update); 
 //Plugin
 
 const pluginsPath = "./Plugins";

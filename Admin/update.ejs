@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrateur | Isis CMS</title>
+    <%- include('../Admin/asset/components/header') %> 
+  <body>
+    <%- include('../Admin/asset/components/nav') %> 
+    
+
+    <div class="container  mt-5 pt-5">
+
+      <h1>Mis à jour | Isis CMS Core </h1>
+      <div class="card card-body">
+        <% if (current_version === update_version) { %>
+          <div class="alert alert-success" role="alert">
+            Votre version est à jour 
+          </div>
+          <% } else {%>
+            <p>Mettez à jour votre version vers <%= update_version %></p>
+            <a href="/admin/update/start" class="btn btn-primary">Mettre à jour </a>
+            <% } %>
+
+      </div>
+        
+    </div>
+  </body>
+</html>
