@@ -187,7 +187,7 @@ function  restart_app() {
       reject(error);
     });
 
-    exec("pm2 restart app", (error, stdout, stderr) => {
+    exec("pm2 restart " + config["pm2 name app"], (error, stdout, stderr) => {
       if (error) {
         console.error(
           "Erreur lors du redémarrage de l'application :",
