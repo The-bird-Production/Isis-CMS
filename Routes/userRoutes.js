@@ -1,11 +1,33 @@
 const express = require('express')
 const router = express.Router()
 const db = require('../System/db')
+const env = require('../var')
 
 const config = require('../config.json')
 
 const themes = require(`../Themes/${config.theme}/theme.js`)
 const UserControllers = require('../Controllers/UserControllers')
+
+
+router.get('/profil', (req,res) => {
+    if (req.session.isLoged === true) {
+        if (!themes.profil) {
+            res.render(env.dirname + '/App/profil',  {
+                req: req
+    
+            })
+    
+        } 
+
+    } else {
+        res.redirect('/user/login')
+    }
+   
+
+
+
+})
+
 
 
 //login
