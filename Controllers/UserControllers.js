@@ -2,7 +2,10 @@ const db = require("../System/db");
 const connection = require('../System/db')
 const bcrypt = require("bcrypt");
 const session = require("../config/session");
+const fs = require('fs')
+const fspromise = require('fs/promises')
 
+const env = require('../var')
 exports.connect = async (req, res) => {
   if (!req.body.email) {
     return;
@@ -108,4 +111,44 @@ exports.create = async (req, res) => {
 
 
 
+  }
+
+  exports.pp_modify = async(req,res) => {
+    try {
+      const [result] = await db.awaitQuery('SELECT * FROM user WHERE username = ' + `"${req.session.username}"`)
+      if (result.ppfile === '/asset/nopp.png') {
+        let SQL = `UPDATE user SET ppfile = "/public/upload/image/pp/${req.file.filename}.png" WHERE username = "${req.session.username}"`
+          await fspromise.rename(env.dirname +`/public/upload/image/pp/${req.file.filename}`,env.dirname +`/public/upload/image/pp/${req.file.filename}.png`)
+          await db.awaitQuery(SQL)
+          req.session.ppfile = `/public/upload/image/pp/${req.file.filename}.png`
+          res.redirect('/user/profil')
+         
+
+      } else {
+        const fileExists = async path => !!(await fspromise.stat(path).catch(e => false));
+        const isExist = await fileExists( env.dirname + result.ppfile)
+        if (!isExist) {
+          let SQL = `UPDATE user SET ppfile = "/public/upload/image/pp/${req.file.filename}.png" WHERE username = "${req.session.username}"`
+          await fspromise.rename(env.dirname +`/public/upload/image/pp/${req.file.filename}`,env.dirname +`/public/upload/image/pp/${req.file.filename}.png`)
+          await db.awaitQuery(SQL)
+          req.session.ppfile = `/public/upload/image/pp/${req.file.filename}.png`
+          res.redirect('/user/profil')
+          
+        }
+        await fspromise.unlink(env.dirname + `/public/upload/image/pp/${result.ppfile}`)
+        let SQL = `UPDATE user SET ppfile = "/public/upload/image/pp/${req.file.filename}.png" WHERE username = "${req.session.username}"`
+       
+          await fspromise.rename(env.dirname +`/public/upload/image/pp/${req.file.filename}`,env.dirname +`/public/upload/image/pp/${req.file.filename}.png`)
+          await db.awaitQuery(SQL)
+          req.session.ppfile = `/public/upload/image/pp/${req.file.filename}.png`
+          res.redirect('/user/profil')
+          
+
+      }
+      
+
+    } catch (error) {
+      console.error('New error at modify PP ' +error + error.stack)
+      res.redirect('/user/profil')
+    }
   }

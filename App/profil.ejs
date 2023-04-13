@@ -45,8 +45,8 @@
                 <div class="col-12 col-lg-12">
                     <h3>Modifier ma photo de profil</h3>
 
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" id="Img" onchange="previewImage(event)" class="form-control">
+                    <form action="/user/modify/pp" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="Img" onchange="previewImage(event)" class="form-control" accept="image/*">
                         
                     
                     <img src="<%= req.session.ppfile %>" alt="Photo de profile" class="img-fluid" id="preview">
