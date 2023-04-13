@@ -45,11 +45,11 @@
                 <div class="col-12 col-lg-12">
                     <h3>Modifier ma photo de profil</h3>
 
-                    <form action="" method="post">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" id="Img" onchange="previewImage(event)" class="form-control">
                         
                     
-                    <img src="/public/upload/img/pp" alt="Photo de profile" class="img-fluid" id="preview">
+                    <img src="<%= req.session.ppfile %>" alt="Photo de profile" class="img-fluid" id="preview">
 
                     <div class="pt-5">
                         <input type="submit" value="Modifier" class="btn btn-primary">

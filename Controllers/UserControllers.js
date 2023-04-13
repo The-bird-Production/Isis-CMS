@@ -43,6 +43,7 @@ exports.connect = async (req, res) => {
       req.session.email = user.email;
       req.session.role = user.role;
       req.session.isLoged = true;
+      req.session.ppfile = user.ppfile
 
       res.redirect("/profil");
     });
