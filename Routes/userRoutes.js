@@ -12,7 +12,7 @@ const multler = require('multer')
 const upload = multler({dest: env.dirname + '/public/upload/image/pp/'})
 
 
-router.get('/profil', (req,res) => {
+router.get('/profil',  async (req,res) => {
     if (req.session.isLoged === true) {
         if (!themes.profil) {
             res.render(env.dirname + '/App/profil',  {

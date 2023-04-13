@@ -115,6 +115,9 @@ exports.create = async (req, res) => {
 
   exports.pp_modify = async(req,res) => {
     try {
+      if (!req.file.filename) {
+        return;
+      }
       const [result] = await db.awaitQuery('SELECT * FROM user WHERE username = ' + `"${req.session.username}"`)
       if (result.ppfile === '/asset/nopp.png') {
         let SQL = `UPDATE user SET ppfile = "/public/upload/image/pp/${req.file.filename}.png" WHERE username = "${req.session.username}"`
@@ -135,7 +138,7 @@ exports.create = async (req, res) => {
           res.redirect('/user/profil')
           
         }
-        await fspromise.unlink(env.dirname + `/public/upload/image/pp/${result.ppfile}`)
+        await fspromise.unlink(env.dirname + `${result.ppfile}`)
         let SQL = `UPDATE user SET ppfile = "/public/upload/image/pp/${req.file.filename}.png" WHERE username = "${req.session.username}"`
        
           await fspromise.rename(env.dirname +`/public/upload/image/pp/${req.file.filename}`,env.dirname +`/public/upload/image/pp/${req.file.filename}.png`)
@@ -145,6 +148,7 @@ exports.create = async (req, res) => {
           
 
       }
+      console.log(req.session)
       
 
     } catch (error) {
