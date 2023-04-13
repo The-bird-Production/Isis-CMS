@@ -55,31 +55,24 @@ exports.connect = async (req, res) => {
 
 
 
-exports.create = (req, res) => {
-  bcrypt.hash(req.body.password, session.saltRounds, (err, hash) => {
-    if (err) {
-    }
-    let data = {
-      email: req.body.email,
-      username: req.body.username,
-      password: hash,
-    };
-    console.log(data);
-    let SQL = `SELECT * FROM user WHERE email="${data.email}"`;
-    db.query(SQL, (err, result) => {
-      let formi = JSON.stringify(result);
-      let formed = JSON.parse(formi);
-      if (data.email === formed.email) {
-      } else {
-        db.query("INSERT INTO user SET ? ", data, (error, resultat) => {
-          if (error) {
-            console.log("NEW DATABASE ERROR : " + error);
-          }
-          if (resultat) {
-            res.redirect("/user/login");
-          }
-        });
-      }
-    });
-  });
-};
+exports.create = async (req, res) => {
+  try {
+  const hash = await bcrypt.hash(req.body.password, session.saltRounds);
+  const data = {
+  email: req.body.email,
+  username: req.body.username,
+  password: hash,
+  };
+  const SQL = `SELECT email FROM user WHERE email="${data.email}";`
+  const result = await db.awaitQuery(SQL);
+  const formed = JSON.parse(JSON.stringify(result));
+  if (formed.length > 0) {
+  // Email already exists
+  return;
+  }
+  await db.awaitQuery("INSERT INTO user SET ? ", data);
+  res.redirect("/user/login");
+  } catch (error) {
+  console.log("NEW DATABASE ERROR : " + error);
+  }
+  };
