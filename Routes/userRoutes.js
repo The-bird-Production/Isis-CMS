@@ -61,6 +61,7 @@ router.post('/create', UserControllers.create)
 
 router.post('/modify/pasword', UserControllers.password_modify)
 router.post('/modify/pp', upload.single("file"), UserControllers.pp_modify)
+router.post('/modify/username', UserControllers.pseudo_modify)
 
 
 module.exports = router

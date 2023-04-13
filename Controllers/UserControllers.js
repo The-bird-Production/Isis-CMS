@@ -156,3 +156,25 @@ exports.create = async (req, res) => {
       res.redirect('/user/profil')
     }
   }
+
+
+  exports.pseudo_modify = async (req,res) => {
+    try {
+      if (req.session.isLoged !== true) {
+        return
+      }
+
+      let npseudo = req.body.username 
+
+      let SQL = `UPDATE user SET username = "${npseudo}" WHERE username = "${req.session.username}"`
+      await db.awaitQuery(SQL)
+      req.session.username = npseudo
+      res.redirect('/user/profil')
+
+
+    } catch (error) {
+      console.log('New error '+ error + error.stack)
+      res.redirect('/user/profil')
+    }
+
+  }
