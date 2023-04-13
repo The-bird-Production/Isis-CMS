@@ -76,3 +76,35 @@ exports.create = async (req, res) => {
   console.log("NEW DATABASE ERROR : " + error);
   }
   };
+
+
+  exports.password_modify =  async (req,res) => {
+    if (req.session.isLoged === true) {
+
+      let apassword = req.body.apassword
+      let npassword = req.body.npassword
+
+      try {
+        const [result] = await db.awaitQuery('SELECT * FROM user WHERE username = ' + `"${req.session.username}"`)
+        
+        const isMatch = await bcrypt.compare(apassword, result.password)
+        if (!isMatch) {
+
+          return;
+        }
+
+       const password = await bcrypt.hash(npassword, 10)
+
+       let SQL = `UPDATE user SET password = "${password}" WHERE username = "${req.session.username}" `
+        await db.awaitQuery(SQL); 
+        res.redirect('/user/profil')
+
+      } catch (error) {
+        console.log('NEW PASSWORD MODIFY ERROR' + error + error.stack)
+      }
+    }
+    
+
+
+
+  }

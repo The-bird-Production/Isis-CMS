@@ -54,4 +54,9 @@ router.get('/create', (req, res ) => {
 router.post('/create', UserControllers.create)
 
 
+//Modify
+
+router.post('/modify/pasword', UserControllers.password_modify)
+
+
 module.exports = router
