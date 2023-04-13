@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" href="/asset/css/style.css">
+    <script src="/asset/js/preview.js"></script>
+</head>
+<body>
+    <div class="mx-0 p-5">
+        <div class="card card-body">
+            <h1>Bonjour <%= req.session.username %></h1>
+            <hr>
+            <div class="container row">
+                <div class="col-12 col-lg-12">
+                    <h3>Changer mes informations</h3>
+                    <form action="" method="post">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nom d'utilisateur</label>
+                            <input type="text" name="username" id="username" value="<%= req.session.username %>" class="form-control">
+
+                        </div>
+                        <input type="submit" value="Modifier" class="btn btn-primary">
+
+                    </form>
+                    <form action="" method="post" class="pt-2">
+                        <h4 class="fs-5">Changer le mot de passe</h4>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Ancien mot de passe</label>
+                            <input type="password" name="apassword" id="username" value="" class="form-control">
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Nouveau mot de passe</label>
+                            <input type="password" name="npassword" id="username" value="" class="form-control">
+
+                        </div>
+                        <input type="submit" value="Modifier" class="btn btn-primary">
+                        
+                    </form>
+
+                </div>
+                <div class="col-12 col-lg-12">
+                    <h3>Modifier ma photo de profil</h3>
+
+                    <form action="" method="post">
+                        <input type="file" name="file" id="Img" onchange="previewImage(event)" class="form-control">
+                        
+                    
+                    <img src="/public/upload/img/pp" alt="Photo de profile" class="img-fluid" id="preview">
+
+                    <div class="pt-5">
+                        <input type="submit" value="Modifier" class="btn btn-primary">
+
+                    </div>
+                    
+                </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+
+
+    
+</body>
+</html>
