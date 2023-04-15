@@ -1,0 +1,7 @@
+{
+    "name": "Blog", 
+    "route": "/blog",
+    "controllerPath": "./Controllers.js",
+    "admin_controllerPath": "./Controllers.js",
+    "version": "1.0.1"
+}
