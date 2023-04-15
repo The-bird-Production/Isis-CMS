@@ -281,7 +281,7 @@ exports.theme_modify = (req, res) => {};
 //Gestion de la mis à jour
 
 exports.update = (req, res) => {
-  axios.get('https://www.update.isis-cms.thebirdproduction.fr/update/version')
+  axios.get('https://update.isis-cms.thebirdproduction.fr/update/version')
   .then(response => {
     const version = response.data.version;
     
