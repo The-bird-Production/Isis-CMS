@@ -7,6 +7,7 @@ colors.enable();
 const request = require("request");
 const AdmZip = require("adm-zip");
 const fs = require("fs");
+const path = require('path')
 
 //Db identifier
 const host = config.db_host;
@@ -24,6 +25,7 @@ const connection = mysql.createConnection({
 const Importer = require("mysql-import");
 const modele_importer = new Importer({ host, user, password, database });
 const backup_importer = new Importer({ host, user, password, database });
+const plugin_importer = new Importer({host, user, password, database})
 
 async function backupDatabase() {
   return new Promise((resolve, reject) => {
@@ -99,6 +101,66 @@ async function updateModele() {
       });
   });
 }
+// Chemin du dossier contenant les fichiers SQL
+const pluginDir = env.dirname + '/Plugins'
+
+// Fonction pour exécuter les requêtes SQL
+function runSqlQuery(sql) {
+  return new Promise((resolve, reject) => {
+    plugin_importer.onProgress((progress) => {
+      var percent =
+        Math.floor((progress.bytes_processed / progress.total_bytes) * 10000) /
+        100;
+      console.log(`${percent}% Completed`);
+    });
+    plugin_importer
+      .import(sql)
+      .then(() => {
+        var files_imported = modele_importer.getImported();
+        console.log(`${files_imported.length} NEW MODELE PLUGIN file imported.`);
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
+
+// Fonction pour lire un fichier SQL et l'exécuter
+async function importPluginSqlFile(pluginName, fileName) {
+  try {
+    const filePath = path.join(pluginDir, pluginName, fileName);
+    const sql = filePath
+    await runSqlQuery(sql);
+    console.log(`Fichier ${fileName} importé pour le plugin ${pluginName}`);
+  } catch (err) {
+    console.error(`Erreur lors de l'importation du fichier ${fileName} pour le plugin ${pluginName}`, err);
+  }
+}
+
+// Fonction pour parcourir les fichiers SQL d'un plugin
+async function importPluginSqlFiles(pluginName) {
+  const pluginDirPath = path.join(pluginDir, pluginName);
+  const files = fs.readdirSync(pluginDirPath);
+  for (const file of files) {
+    if (path.extname(file).toLowerCase() === '.sql') {
+      await importPluginSqlFile(pluginName, file);
+    }
+  }
+}
+
+// Fonction principale pour parcourir les plugins
+async function importPluginsSql() {
+  const plugins = fs.readdirSync(pluginDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  for (const plugin of plugins) {
+    await importPluginSqlFiles(plugin);
+  }
+
+}
 
 async function restoreBackup() {
   return new Promise((resolve, reject) => {
@@ -140,6 +202,7 @@ async function update_db() {
     await deleteOldDatabase();
     await createNewDatabase();
     await updateModele();
+    await importPluginsSql();
     await restoreBackup();
     await sucess_message();
   } catch (error) {

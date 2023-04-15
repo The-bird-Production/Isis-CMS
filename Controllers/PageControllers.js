@@ -5,7 +5,21 @@ const env = require('../var')
 const themes = require(`../Themes/${config.theme}/theme.js`)
 
 
-exports.index = (req,res) => {
+exports.index = async (req,res) => {
+
+    const [result] = await db.awaitQuery('SELECT * FROM page WHERE url = "/index"'); 
+    if (!result) {
+        if(typeof themes.index !== 'undefined') {
+            res.render (themes.index , {
+                theme_header : themes.header
+            })
+        }
+       
+        res.render(env.dirname + '/App/error/404', {
+            theme_header: themes.header
+        })
+    }
+
     db.query('SELECT * FROM page WHERE url = "/index"', (err, result ) => {
         if (err) {
             res.status(503).send('Erreur du serveur')
@@ -20,7 +34,7 @@ exports.index = (req,res) => {
             })
         }
         else {
-            res.status(404).render(env.dirname + '/app/error/404', {
+            res.status(404).render(env.dirname + '/App/error/404', {
                 theme_header: themes.header
             });
         }
