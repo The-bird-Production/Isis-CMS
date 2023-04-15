@@ -9,13 +9,14 @@ exports.index = async (req,res) => {
 
     const [result] = await db.awaitQuery('SELECT * FROM page WHERE url = "/index"'); 
     if (!result) {
-        if(!themes.index) {
-            res.render(env.dirname + '/App/error/404', {
-                theme_header: themes.header
+        if(typeof themes.index !== 'undefined') {
+            res.render (themes.index , {
+                theme_header : themes.header
             })
         }
-        res.render (themes.index , {
-            theme_header : themes.header
+       
+        res.render(env.dirname + '/App/error/404', {
+            theme_header: themes.header
         })
     }
 
