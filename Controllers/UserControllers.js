@@ -3,7 +3,7 @@ const connection = require('../System/db')
 const bcrypt = require("bcrypt");
 const session = require("../config/session");
 const fs = require('fs')
-const fspromise = require('fs/promises')
+const fspromise = require('fs').promises
 
 const env = require('../var')
 exports.connect = async (req, res) => {
@@ -48,7 +48,7 @@ exports.connect = async (req, res) => {
       req.session.isLoged = true;
       req.session.ppfile = user.ppfile
 
-      res.redirect("/profil");
+      res.redirect("/user/profil");
     });
   } catch (error) {
     console.log("NEW ERROR USERCONTROLLER: " + error + error.stack);
