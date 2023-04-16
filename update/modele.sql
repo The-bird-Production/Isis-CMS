@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(100) NOT NULL,
   `role` varchar(100) DEFAULT NULL,
   `ppfile` varchar(100) NOT NULL DEFAULT '/asset/nopp.png',
+  `last_ip` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
