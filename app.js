@@ -49,6 +49,16 @@ app.use('/asset', express.static(__dirname + '/Admin/asset'))
 app.use('/Themes',express.static(__dirname + '/Themes'))
 
 
+//Logs for all actions 
+app.use((req, res, next) => {
+  console.log(`[${new Date()}] ${req.method} ${req.url}`);
+  res.on('finish', () => {
+    console.log(`[${new Date()}] ${req.method} ${req.url} ${res.statusCode} ${res.statusMessage}; ${res.get('Content-Length') || 0}b sent`);
+  });
+  next();
+});
+
+
 //Plugin loading 
 
 const pluginsPath = './Plugins';

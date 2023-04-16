@@ -20,7 +20,14 @@ router.get('/profil',  async (req,res) => {
     
             })
     
-        } 
+        } else {
+            res.render(themes.profil, {
+                theme_header : themes.header, 
+                req: req
+            })
+
+        }
+        
 
     } else {
         res.redirect('/user/login')

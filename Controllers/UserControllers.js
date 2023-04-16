@@ -34,7 +34,9 @@ exports.connect = async (req, res) => {
       res.redirect("/user/login");
       return;
     }
-
+    const ip = req.socket.remoteAddress;
+    const update_sql = `UPDATE user SET last_ip = "${ip}" WHERE id = "${user.id}"`; 
+    await db.awaitQuery(update_sql)
     req.session.regenerate((err) => {
       if (err) {
         console.error(err);

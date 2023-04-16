@@ -18,28 +18,31 @@ exports.index = async (req,res) => {
         res.render(env.dirname + '/App/error/404', {
             theme_header: themes.header
         })
+    } else {
+        db.query('SELECT * FROM page WHERE url = "/index"', (err, result ) => {
+            if (err) {
+                res.status(503).send('Erreur du serveur')
+            }
+            if (result) {
+                let formi = JSON.stringify(result)
+                let formed = JSON.parse(formi)
+    
+                res.render(themes.view_path + '.ejs' , {
+                    page :formed,
+                    theme_header: themes.header
+                })
+            }
+            else {
+                res.status(404).render(env.dirname + '/App/error/404', {
+                    theme_header: themes.header
+                });
+            }
+    
+        })
+
     }
 
-    db.query('SELECT * FROM page WHERE url = "/index"', (err, result ) => {
-        if (err) {
-            res.status(503).send('Erreur du serveur')
-        }
-        if (result) {
-            let formi = JSON.stringify(result)
-            let formed = JSON.parse(formi)
-
-            res.render(themes.view_path + '.ejs' , {
-                page :formed,
-                theme_header: themes.header
-            })
-        }
-        else {
-            res.status(404).render(env.dirname + '/App/error/404', {
-                theme_header: themes.header
-            });
-        }
-
-    })
+    
 }
 exports.page = (req,res) => {
     let page = req.params.page;
