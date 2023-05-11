@@ -48,6 +48,32 @@ app.use('/admin', Admin_Routes)
 app.use('/asset', express.static(__dirname + '/Admin/asset'))
 app.use('/Themes',express.static(__dirname + '/Themes'))
 
+//Gestion de langue 
+app.use((req, res, next) => {
+  if (req.method === 'GET') {
+    const acceptedLanguages = req.headers['accept-language'];
+
+    // Analyse des langues acceptées par le navigateur
+  
+  if (acceptedLanguages) {
+    const languages = acceptedLanguages.split(',');
+    const browserLanguage = languages[0].trim().substring(0, 2);
+    
+    console.log(browserLanguage)
+
+    const lang = browserLanguage || 'fr'; // Remplacez 'fr' par la langue souhaitée
+
+    
+
+    // Ajoutez le paramètre de langue à l'URL
+    
+    req.langage = lang
+    next()
+  }
+}
+  
+});
+
 
 //Logs for all actions 
 app.use((req, res, next) => {

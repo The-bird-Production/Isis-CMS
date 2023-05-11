@@ -10,6 +10,8 @@ const MainControllers = require("../Controllers/MainControllers");
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
 router.get("/:page([a-z]+)", PageControllers.page);
+
+
 router.use((req, res, next) => {
   if (req.url.startsWith("/asset")) {
     const filePath = env.dirname + `/Themes/${config.theme}/` + req.url;
