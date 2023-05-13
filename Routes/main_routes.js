@@ -6,10 +6,15 @@ const PageControllers = require("../Controllers/PageControllers");
 const fs = require("fs");
 
 const MainControllers = require("../Controllers/MainControllers");
+const EventControllers = require('../Controllers/EventControllers')
 
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
+router.get("/error", EventControllers.error);
+router.get("/success", EventControllers.success);
+
 router.get("/:page([a-z]+)", PageControllers.page);
+
 
 
 router.use((req, res, next) => {
@@ -30,7 +35,8 @@ router.get('/test', (req,res) => {
   res.status(200)
 })
 router.get('/r/:url', MainControllers.redirect)
-router.get("/sucess", MainControllers.sucess);
+
+
 
 
 router.get("/", PageControllers.index);
