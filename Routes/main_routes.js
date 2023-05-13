@@ -13,10 +13,12 @@ const themes = require(`../Themes/${config.theme}/theme.js`);
 router.get("/error", EventControllers.error);
 router.get("/success", EventControllers.success);
 
+
+
 router.get("/:page([a-z]+)", PageControllers.page);
 
 
-
+//Asset  
 router.use((req, res, next) => {
   if (req.url.startsWith("/asset")) {
     const filePath = env.dirname + `/Themes/${config.theme}/` + req.url;
@@ -31,14 +33,18 @@ router.use((req, res, next) => {
     next();
   }
 });
+
+//Testing 
 router.get('/test', (req,res) => {
   res.status(200)
 })
+
+//Redirect
 router.get('/r/:url', MainControllers.redirect)
 
 
 
-
+//Main Page
 router.get("/", PageControllers.index);
 
 
