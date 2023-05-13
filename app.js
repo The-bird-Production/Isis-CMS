@@ -48,7 +48,7 @@ app.use('/admin', Admin_Routes)
 app.use('/asset', express.static(__dirname + '/Admin/asset'))
 app.use('/Themes',express.static(__dirname + '/Themes'))
 
-//Gestion de langue 
+//Language
 app.use((req, res, next) => {
   if (req.method === 'GET') {
     const acceptedLanguages = req.headers['accept-language'];
