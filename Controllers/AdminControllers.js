@@ -6,8 +6,8 @@ const get = require("../System/getdata");
 const system_data = require("../System/ControlData");
 const plugins = get.plugins;
 const path = require("path");
-const package = require("../package.json");
-const axios = require('axios')
+const pkg = require("../package.json");
+const axios = require("axios");
 
 exports.admin = (req, res) => {
   get.get_number_of_docs((docs) => {
@@ -281,31 +281,27 @@ exports.theme_modify = (req, res) => {};
 //Gestion de la mis à jour
 
 exports.update = (req, res) => {
-  axios.get('https://update.isis-cms.thebirdproduction.fr/update/version')
-  .then(response => {
-    const version = response.data.version;
-    
-    
-    res.render(env.dirname + "/Admin/update", {
-      current_version: package.version,
-      update_version: version,
-      plugins: plugins
+  axios
+    .get("https://update.isis-cms.thebirdproduction.fr/update/version")
+    .then((response) => {
+      const version = response.data.version;
+
+      res.render(env.dirname + "/Admin/update", {
+        current_version: pkg.version,
+        update_version: version,
+        plugins: plugins,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  })
-  .catch(error => {
-    console.error(error);
-  });
- 
-      
-    
 };
 
-exports.update_start = (req,res) => {
-  const update = require('../System/update')
-  
-  update.update()
-  .then()
-  .catch(res.send('Une erreur c\'est produite lors de la mis à jour '))
+exports.update_start = (req, res) => {
+  const update = require("../System/update");
 
-
-}
+  update
+    .update()
+    .then()
+    .catch(res.send("Une erreur c'est produite lors de la mis à jour "));
+};
