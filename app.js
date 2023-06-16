@@ -41,6 +41,13 @@ const Main_Routes = require('./Routes/main_routes');
 const User_Routes = require('./Routes/userRoutes')
 const Admin_Routes = require('./Routes/AdminRoutes')
 
+//Test Route 
+
+app.get('/test', (req, res) => {
+  console.log("TEST"); 
+  res.status(200)
+})
+
 
 app.use("/public/upload/", express.static(env.dirname +  '/public/upload'))
 app.use('/user', User_Routes)
@@ -105,8 +112,6 @@ fs.readdirSync(pluginsPath).forEach(file => {
 
 app.use('/', Main_Routes)
 
-app.listen(config.app_port, () => {
-    console.log(colors.blue.underline("\nServeur listening on http://localhost:"+config.app_port + '\n'))
-})
+
 
 module.exports = app
