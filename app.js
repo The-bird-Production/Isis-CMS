@@ -5,6 +5,7 @@ const db_config = require('./config/db')
 const env = require('./var')
 const fs = require('fs')
 const colors = require('colors/safe');
+require('dotenv').config()
 
 console.log( colors.blue.underline( 'ISIS CMS STARTING \n')  );
 console.log(colors.green('Theme used : ' + config.theme + '\n'))
@@ -40,6 +41,13 @@ app.use(session({
 const Main_Routes = require('./Routes/main_routes'); 
 const User_Routes = require('./Routes/userRoutes')
 const Admin_Routes = require('./Routes/AdminRoutes')
+
+//Test Route 
+
+app.get('/test', (req, res) => {
+  console.log("TEST"); 
+  res.status(200)
+})
 
 
 app.use("/public/upload/", express.static(env.dirname +  '/public/upload'))
@@ -105,8 +113,6 @@ fs.readdirSync(pluginsPath).forEach(file => {
 
 app.use('/', Main_Routes)
 
-app.listen(config.app_port, () => {
-    console.log(colors.blue.underline("\nServeur listening on http://localhost:"+config.app_port + '\n'))
-})
+
 
 module.exports = app

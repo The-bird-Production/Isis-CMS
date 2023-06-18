@@ -10,14 +10,13 @@ module.exports = db = mysql.createConnection({
     database: dbconfig.db_name 
 })
 
-
 db.connect((error) => {
-    if (error) {
-      console.error('Error connecting to database: ' + error.stack);
-      return;
-    }
-    console.log('Connected to database with threadId: ' + db.threadId);
-  });
+  if (error) {
+    console.error('Error connecting to database: ' + error.stack);
+    return;
+  }
+  console.log('Connected to database with threadId: ' + db.threadId);
+});
 
   module.exports = connection = amysql.createConnection({
     host: dbconfig.db_host,
