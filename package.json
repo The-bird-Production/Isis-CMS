@@ -37,6 +37,7 @@
   "homepage": "https://github.com/Faynix-code/Isis-CMS#readme",
   "description": "Un CMS avec NodeJS et ExpressJS ",
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
   },
