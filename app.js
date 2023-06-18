@@ -5,6 +5,7 @@ const db_config = require('./config/db')
 const env = require('./var')
 const fs = require('fs')
 const colors = require('colors/safe');
+require('dotenv').config()
 
 console.log( colors.blue.underline( 'ISIS CMS STARTING \n')  );
 console.log(colors.green('Theme used : ' + config.theme + '\n'))
