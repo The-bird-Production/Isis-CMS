@@ -29,9 +29,8 @@ jobs:
       - run:
           name: Install MySQL AND NODE JS CLI; Import dummy data;
           command: |
-          mysql --v 
+            mysql --version
             npm install
-           
            # mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/test.sql
       - run: 
           name: Test the App
