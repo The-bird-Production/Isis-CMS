@@ -5,8 +5,7 @@ jobs:
   build:
     docker:
       - image: cimg/php:8.1-browsers # The primary container where steps are run
-      - image: cimg/mysql:8.0
-      - image: cimg/node:20.3.1
+      - image: cimg/mysql:8.0-node
         environment:
           MYSQL_ROOT_PASSWORD: rootpw
           MYSQL_DATABASE: test_db
@@ -22,7 +21,6 @@ jobs:
             for i in `seq 1 10`;
             do
               nc -z 127.0.0.1 3306 && echo Success && exit 0
-              mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/test.sql
               echo -n .
               sleep 1
             done
@@ -30,6 +28,7 @@ jobs:
       - run:
           name: Install MySQL AND NODE JS CLI; Import dummy data;
           command: |
+            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/test.sql
             npm install 
       - run: 
           name: Test the App
