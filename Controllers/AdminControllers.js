@@ -3,7 +3,7 @@ const theme = require("../themes.json");
 const config = require("../config.json");
 const db = require("../System/db");
 
-const get = require("../System/getdata");
+const get = require(env.dirname + '/System/getdata.js');
 const system_data = require("../System/ControlData");
 const plugins = get.plugins;
 const path = require("path");
