@@ -34,7 +34,7 @@ jobs:
       - run: 
           name: Test the App
           command: | 
-          npm test 
+            npm test 
 
 workflows:
   build-deploy:
