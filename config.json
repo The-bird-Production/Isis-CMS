@@ -4,9 +4,9 @@
     
     "app_port": 3000,
     "db_host": "localhost",
-    "db_user": "etienne",
-    "db_password": "Titi@91490",
-    "db_name": "isis",
+    "db_user": "user",
+    "db_password": "passw0rd",
+    "db_name": "test_db",
 
     
     "theme": "Isis2k23",
