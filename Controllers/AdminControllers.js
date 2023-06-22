@@ -3,7 +3,7 @@ const theme = require("../themes.json");
 const config = require("../config.json");
 const db = require("../System/db");
 
-let get = require("../System/getdata");
+let data = require("../System/getdata");
 
 const { plugins } = require('../System/getdata')
 
@@ -14,8 +14,8 @@ const pkg = require("../package.json");
 const axios = require("axios");
 
 exports.admin = (req, res) => {
-  get.get_number_of_docs((docs) => {
-    get.get_number_of_user((user) => {
+  data.get_number_of_docs((docs) => {
+    data.get_number_of_user((user) => {
       res.render(env.dirname + "/Admin/index", {
         title: "Isis CMS",
         req: req,
@@ -28,7 +28,7 @@ exports.admin = (req, res) => {
 };
 
 exports.pics = (req, res) => {
-  get.get_admin_img((img) => {
+  data.get_admin_img((img) => {
     res.render(env.dirname + "/Admin/pics", {
       img_data: img,
       url: config.website_url,
@@ -85,7 +85,7 @@ exports.pics_delete = (req, res) => {
 };
 
 exports.docs = (req, res) => {
-  get.get_all_docs((docs) => {
+  data.get_all_docs((docs) => {
     res.render(env.dirname + "/Admin/docs", {
       docs: docs,
       url: config.website_url,
@@ -132,7 +132,7 @@ exports.docs_delete = (req, res) => {
 };
 
 exports.user = (req, res) => {
-  get.get_admin_user((user) => {
+  data.get_admin_user((user) => {
     res.render(env.dirname + "/Admin/user", {
       user: user,
       plugins: plugins,
@@ -141,7 +141,7 @@ exports.user = (req, res) => {
 };
 
 exports.page = (req, res) => {
-  get.get_all_page((page) => {
+  data.get_all_page((page) => {
     res.render(env.dirname + "/Admin/page", {
       page: page,
       plugins: plugins,
@@ -151,7 +151,7 @@ exports.page = (req, res) => {
 
 //Gestion des rédirections
 exports.redirect = (req, res) => {
-  get.get_all_redirect((redirect) => {
+  data.get_all_redirect((redirect) => {
     res.render(env.dirname + "/Admin/redirect", {
       redirect: redirect,
       plugins: plugins,
@@ -190,7 +190,7 @@ exports.redirect_remove = (req, res) => {
 
 //Gestion des pages
 exports.user_page = (req, res) => {
-  get.get_user_page((page) => {
+  data.get_user_page((page) => {
     res.render(env.dirname + "/Admin/page", {
       page: page,
       plugins: plugins,
@@ -286,7 +286,7 @@ exports.theme_modify = (req, res) => {};
 
 exports.update = (req, res) => {
   axios
-    .get("https://update.isis-cms.thebirdproduction.fr/update/version")
+    .data("https://update.isis-cms.thebirdproduction.fr/update/version")
     .then((response) => {
       const version = response.data.version;
 
