@@ -5,9 +5,10 @@ const db = require("../System/db");
 
 let get = require("../System/getdata");
 
+const { plugins } = require('../System/getdata')
 
 const system_data = require("../System/ControlData");
-const plugins = get.plugins;
+
 const path = require("path");
 const pkg = require("../package.json");
 const axios = require("axios");
