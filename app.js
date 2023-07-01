@@ -66,8 +66,7 @@ app.use((req, res, next) => {
   if (acceptedLanguages) {
     const languages = acceptedLanguages.split(',');
     const browserLanguage = languages[0].trim().substring(0, 2);
-    
-    console.log(browserLanguage)
+  
 
     const lang = browserLanguage || 'fr'; // Remplacez 'fr' par la langue souhaitée
 

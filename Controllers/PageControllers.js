@@ -8,7 +8,9 @@ exports.index = async (req, res) => {
   let lang = req.langage;
 
   const [result] = await db.awaitQuery(
-    'SELECT * FROM page WHERE url = "/index" AND lang = "'+ config.locales + '"'
+    'SELECT * FROM page WHERE url = "/index" AND lang = "' +
+      config.locales +
+      '"'
   );
   if (!result) {
     //Verifiy if the theme file exist
