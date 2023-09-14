@@ -3,13 +3,9 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-
-    return knex.schema
+    return knex.schema 
     .alterTable('page', (page) => {
-        page.dropColumn('is_static')
-        
-
-        
+        page.boolean('is_static').defaultTo(false)
     })
   
 };
@@ -20,9 +16,8 @@ exports.up = function(knex) {
  */
 exports.down = function(knex) {
     return knex.schema 
-    .alterTable('page', (page ) => {
-       page.boolean('is_static').defaultTo(false)
-    } ) 
-   
+    .alterTable('page', (page) => {
+        page.dropColumn('is_static') 
+    })
   
 };
