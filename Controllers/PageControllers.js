@@ -48,38 +48,40 @@ exports.index = async (req, res) => {
   }
 };
 
-exports.page = (req, res) => {
+exports.page = async (req, res) => {
   let page = req.params.page;
   let lang = req.langage;
+  
+  console.log('is on the way ' + page + ' ' + lang  )
 
-  db.query(
-    "SELECT * FROM page WHERE url = " + `"/${page}" AND lang = "${lang}"`,
-    (err, result) => {
-      if (err) {
-        res.status(503).send("Erreur du serveur");
-      }
-      if (result) {
-        let formi = JSON.stringify(result);
-        let formed = JSON.parse(formi);
-        if (
-          typeof formed !== "undefined" &&
-          formed.length > 0 &&
-          typeof formed[0].title !== "undefined"
-        ) {
-          res.render(themes.view_path + ".ejs", {
-            page: formed,
-            theme_header: themes.header,
-          });
-        } else {
-          res.status(404).render(themes.error_path, {
-            theme_header: themes.header,
-          });
-        }
-      } else {
-        res.status(404).render(themes.error_path, {
-          theme_header: themes.header,
-        });
-      }
+
+  try {
+    
+    const [result] = await db.awaitQuery(
+      "SELECT * FROM page WHERE url = " + `"/${page}" AND lang = "${lang}"`
+    );
+    if (result) {
+      
+          if (result.is_static === "false" ) {
+            console.log([result])
+
+            res.render(themes.view_path + ".ejs", {
+              page: result,
+              theme_header: themes.header,
+            });
+
+          } else {
+
+            var file = env.dirname+"/public/pages/"+result.url+".html";
+            
+            res.sendFile(file); 
+          }
+        
+
     }
-  );
+  } catch (error) {
+    console.log('NEW ERROR IN PAGE CONTROLLER ' + error + error.stack )
+    res.redirect('/error/?title=404 : La page n\'existe pas&msg=Nous sommes désolés la page n\'existe pas  ')
+  }
+
 };

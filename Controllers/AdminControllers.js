@@ -209,6 +209,8 @@ exports.new_page_post = (req, res) => {
     title: req.body.title,
     body: req.body.body,
     type: "user_page",
+    is_static: "false",
+    lang: "fr"
   };
 
   db.query("INSERT INTO page SET ? ", data, (err, result) => {
