@@ -49,11 +49,11 @@ app.get('/test', (req, res) => {
   res.status(200)
 })
 
-
+app.use('/asset', express.static(__dirname + '/Themes/' + config.theme + '/asset/'))
 app.use("/public/upload/", express.static(env.dirname +  '/public/upload'))
 app.use('/user', User_Routes)
 app.use('/admin', Admin_Routes)
-app.use('/asset', express.static(__dirname + '/Admin/asset'))
+app.use('/admin_asset', express.static(__dirname + '/Admin/asset'))
 app.use('/Themes',express.static(__dirname + '/Themes'))
 
 //Language
