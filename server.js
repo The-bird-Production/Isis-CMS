@@ -1,6 +1,8 @@
 const app = require('./app')
 const config = require('./config.json')
 const colors = require('colors/safe');
+require('dotenv').config()
+
 
 
 app.listen(config.app_port, () => {

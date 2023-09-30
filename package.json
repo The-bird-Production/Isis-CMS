@@ -1,6 +1,6 @@
 {
   "name": "isis-cms",
-  "version": "3.8.6",
+  "version": "3.9.2",
   "main": "app.js",
   "scripts": {
     "test": "jest",
