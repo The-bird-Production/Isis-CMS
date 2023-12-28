@@ -5,13 +5,15 @@ const db = require("../System/db");
 
 let data = require("../System/getdata");
 
-const { plugins } = require('../System/getdata')
+const { plugins } = require("../System/getdata");
 
 const system_data = require("../System/ControlData");
 
 const path = require("path");
 const pkg = require("../package.json");
-const axios = require("axios");
+
+const axios = require('axios');
+
 
 exports.admin = (req, res) => {
   data.get_number_of_docs((docs) => {
@@ -210,7 +212,7 @@ exports.new_page_post = (req, res) => {
     body: req.body.body,
     type: "user_page",
     is_static: "false",
-    lang: "fr"
+    lang: "fr",
   };
 
   db.query("INSERT INTO page SET ? ", data, (err, result) => {
@@ -286,21 +288,39 @@ exports.theme_modify = (req, res) => {};
 
 //Gestion de la mis à jour
 
-exports.update = (req, res) => {
-  axios
-    .data("https://update.isis-cms.thebirdproduction.fr/update/version")
-    .then((response) => {
-      const version = response.data.version;
+exports.update = async (req, res) => {
+  
+  console.log('Début de la requête');
 
-      res.render(env.dirname + "/Admin/update", {
-        current_version: pkg.version,
-        update_version: version,
-        plugins: plugins,
-      });
+  axios.get("https://update.isis-cms.thebirdproduction.fr/manager/version/" + config.update_key)
+    .then(response => {
+      console.log('Réponse reçue');
+  
+      if (response.status === 200) {
+        console.log('Réponse OK');
+  
+        const version = response.data.version;
+  
+        console.log('Requête réussie');
+  
+        res.render(env.dirname + "/Admin/update", {
+          current_version: pkg.version,
+          update_version: version,
+          plugins: plugins,
+        });
+      } else {
+        console.log('Échec de la requête avec le statut:', response.status);
+      }
     })
-    .catch((error) => {
-      console.error(error);
+    .catch(error => {
+      console.error('Erreur :', error);
+    })
+    .finally(() => {
+      console.log('Fin de la requête');
     });
+  
+  
+  
 };
 
 exports.update_start = (req, res) => {
