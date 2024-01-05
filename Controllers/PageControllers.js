@@ -81,7 +81,7 @@ exports.page = async (req, res) => {
 };
 
 exports.robotDotTxt = (req, res) => {
-  if (fs.existsSync(env.dirname + "robot.txt")) {
+  if (fs.existsSync(env.dirname + "/robot.txt")) {
     res.sendFile(env.dirname + "/robot.txt");
   } else {
     res.send("Error No robot.txt").status(404);
