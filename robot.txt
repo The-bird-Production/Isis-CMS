@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /Themes/
+Disallow: /Admin/
+
+User-agent: Googlebot
+Disallow: /no-googlebot/
+
+User-agent: Bingbot
+Disallow: /no-bingbot/
