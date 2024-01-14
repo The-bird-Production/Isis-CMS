@@ -32,7 +32,7 @@ exports.index = async (req, res) => {
 
       if (result) {
         res.render(themes.view_path + ".ejs", {
-          page: formed,
+          page: result,
           theme_header: themes.header,
         });
       } else {
@@ -42,8 +42,9 @@ exports.index = async (req, res) => {
       }
     } catch (error) {
       res
-        .render(503)
+        .status(503)
         .send("Une erreur est survenue veuillez contater l'administrateur");
+        console.log(error)
     }
   }
 };
