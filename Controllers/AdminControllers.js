@@ -12,8 +12,7 @@ const system_data = require("../System/ControlData");
 const path = require("path");
 const pkg = require("../package.json");
 
-const axios = require('axios');
-
+const axios = require("axios");
 
 exports.admin = (req, res) => {
   data.get_number_of_docs((docs) => {
@@ -289,38 +288,30 @@ exports.theme_modify = (req, res) => {};
 //Gestion de la mis à jour
 
 exports.update = async (req, res) => {
-  
-  console.log('Début de la requête');
+  console.log("Début de la requête");
 
-  axios.get("https://update.isis-cms.thebirdproduction.fr/manager/version/" + config.update_key)
-    .then(response => {
-      console.log('Réponse reçue');
-  
+  fetch(
+    "https://update.isis-cms.thebirdproduction.fr/manager/version/" +
+      config.update_key
+  )
+    .then((response) => {
       if (response.status === 200) {
-        console.log('Réponse OK');
-  
-        const version = response.data.version;
-  
-        console.log('Requête réussie');
-  
-        res.render(env.dirname + "/Admin/update", {
-          current_version: pkg.version,
-          update_version: version,
-          plugins: plugins,
-        });
+        return response.json();
       } else {
-        console.log('Échec de la requête avec le statut:', response.status);
+        throw new Error("Échec de la requête avec le statut:", response.status);
       }
     })
-    .catch(error => {
-      console.error('Erreur :', error);
+    .then((json) => {
+      const version = json.version;
+      res.render(env.dirname + "/Admin/update", {
+        current_version: pkg.version,
+        update_version: version,
+        plugins: plugins,
+      });
     })
-    .finally(() => {
-      console.log('Fin de la requête');
+    .catch((error) => {
+      console.error("Erreur :", error);
     });
-  
-  
-  
 };
 
 exports.update_start = (req, res) => {

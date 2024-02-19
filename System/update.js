@@ -26,27 +26,27 @@ async function migrate_db() {
   }
 }
 
-function update_files() {
-  return new Promise((resolve, reject) => {
+async function updateFiles() {
+  try {
     const url =
       "https://update.isis-cms.thebirdproduction.fr/update/latest/" +
       config.update_key;
-    request.get(url, { encoding: null }, (error, response, body) => {
-      if (error) {
-        console.error(
-          "Erreur lors du téléchargement du fichier de mise à jour :",
-          error
-        );
-        reject(error);
-        return;
-      }
-
-      // Extraire le contenu du fichier ZIP dans le répertoire de l'application
-      const zip = new AdmZip(body);
+    const response = await fetch(url);
+    if (response.status === 200) {
+      const arrayBuffer = await response.arrayBuffer();
+      const zip = new AdmZip(arrayBuffer);
       zip.extractAllTo(env.dirname, true);
-      resolve();
-    });
-  });
+      return;
+    } else {
+      throw new Error(
+        "Erreur lors du téléchargement du fichier de mise à jour : " +
+          response.statusText
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 function restart_app() {
@@ -74,12 +74,14 @@ function restart_app() {
 
 async function update() {
   try {
-    await update_files();
+    await updateFiles();
     await migrate_db();
     await restart_app();
   } catch (error) {
     console.error("New error during update", error);
   }
 }
+
+update();
 
 exports.update = update;
