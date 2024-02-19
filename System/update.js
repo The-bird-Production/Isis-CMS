@@ -3,7 +3,6 @@ const env = require("../var");
 const config = require("../config.json");
 const colors = require("colors/safe");
 colors.enable();
-const request = require("request");
 const AdmZip = require("adm-zip");
 const fs = require("fs");
 const path = require("path");
