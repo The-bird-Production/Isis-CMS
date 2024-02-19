@@ -5,12 +5,13 @@ const db = require("../System/db");
 
 let data = require("../System/getdata");
 
-const { plugins } = require('../System/getdata')
+const { plugins } = require("../System/getdata");
 
 const system_data = require("../System/ControlData");
 
 const path = require("path");
 const pkg = require("../package.json");
+
 const axios = require("axios");
 
 exports.admin = (req, res) => {
@@ -210,7 +211,7 @@ exports.new_page_post = (req, res) => {
     body: req.body.body,
     type: "user_page",
     is_static: "false",
-    lang: "fr"
+    lang: "fr",
   };
 
   db.query("INSERT INTO page SET ? ", data, (err, result) => {
@@ -286,12 +287,22 @@ exports.theme_modify = (req, res) => {};
 
 //Gestion de la mis à jour
 
-exports.update = (req, res) => {
-  axios
-    .data("https://update.isis-cms.thebirdproduction.fr/update/version")
-    .then((response) => {
-      const version = response.data.version;
+exports.update = async (req, res) => {
+  console.log("Début de la requête");
 
+  fetch(
+    "https://update.isis-cms.thebirdproduction.fr/manager/version/" +
+      config.update_key
+  )
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw new Error("Échec de la requête avec le statut:", response.status);
+      }
+    })
+    .then((json) => {
+      const version = json.version;
       res.render(env.dirname + "/Admin/update", {
         current_version: pkg.version,
         update_version: version,
@@ -299,7 +310,7 @@ exports.update = (req, res) => {
       });
     })
     .catch((error) => {
-      console.error(error);
+      console.error("Erreur :", error);
     });
 };
 

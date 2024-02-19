@@ -1,7 +1,7 @@
 const db = require("../System/db");
 const config = require("../config.json");
 const env = require("../var");
-
+const fs = require("fs");
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
 exports.index = async (req, res) => {
@@ -32,7 +32,7 @@ exports.index = async (req, res) => {
 
       if (result) {
         res.render(themes.view_path + ".ejs", {
-          page: formed,
+          page: result,
           theme_header: themes.header,
         });
       } else {
@@ -42,8 +42,9 @@ exports.index = async (req, res) => {
       }
     } catch (error) {
       res
-        .render(503)
+        .status(503)
         .send("Une erreur est survenue veuillez contater l'administrateur");
+        console.log(error)
     }
   }
 };
@@ -51,37 +52,46 @@ exports.index = async (req, res) => {
 exports.page = async (req, res) => {
   let page = req.params.page;
   let lang = req.langage;
-  
-  console.log('is on the way ' + page + ' ' + lang  )
 
+  console.log("is on the way " + page + " " + lang);
 
   try {
-    
     const [result] = await db.awaitQuery(
       "SELECT * FROM page WHERE url = " + `"/${page}" AND lang = "${lang}"`
     );
     if (result) {
-      
-          if (result.is_static === "false" ) {
-            console.log([result])
+      if (result.is_static === "false") {
+        console.log([result]);
 
-            res.render(themes.view_path + ".ejs", {
-              page: result,
-              theme_header: themes.header,
-            });
+        res.render(themes.view_path + ".ejs", {
+          page: result,
+          theme_header: themes.header,
+        });
+      } else {
+        var file = env.dirname + "/public/pages/" + result.url + ".html";
 
-          } else {
-
-            var file = env.dirname+"/public/pages/"+result.url+".html";
-            
-            res.sendFile(file); 
-          }
-        
-
+        res.sendFile(file);
+      }
     }
   } catch (error) {
-    console.log('NEW ERROR IN PAGE CONTROLLER ' + error + error.stack )
-    res.redirect('/error/?title=404 : La page n\'existe pas&msg=Nous sommes désolés la page n\'existe pas  ')
+    console.log("NEW ERROR IN PAGE CONTROLLER " + error + error.stack);
+    res.redirect(
+      "/error/?title=404 : La page n'existe pas&msg=Nous sommes désolés la page n'existe pas  "
+    );
   }
+};
 
+exports.robotDotTxt = (req, res) => {
+  if (fs.existsSync(env.dirname + "/robot.txt")) {
+    res.sendFile(env.dirname + "/robot.txt");
+  } else {
+    res.send("Error No robot.txt").status(404);
+  }
+};
+exports.sitemapDotXml = (req, res) => {
+  if (fs.existsSync(env.dirname + "/sitemap.xml")) {
+    res.sendFile(env.dirname + "/sitemap.xml");
+  } else {
+    res.send("Error No Sitemap.xml").status(404);
+  }
 };
