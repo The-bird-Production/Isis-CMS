@@ -28,7 +28,7 @@ async function migrate_db() {
 async function updateFiles() {
   try {
     const url =
-      "https://update.isis-cms.thebirdproduction.fr/update/latest/" +
+      "https://update.isis-cms.thebirdproduction.fr/version/download/" +
       config.update_key;
     const response = await fetch(url);
     if (response.status === 200) {
