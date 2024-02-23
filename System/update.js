@@ -4,11 +4,17 @@ const config = require("../config.json");
 const colors = require("colors/safe");
 colors.enable();
 const AdmZip = require("adm-zip");
-const fs = require("fs");
-const path = require("path");
+
+//Database Migration
 const knex = require("knex");
 const knex_conf = require("../knexfile");
 const migrate_knex = knex(knex_conf.production);
+
+//Process manager 
+
+const restart = require('../Functions/RestartApp')
+
+
 
 async function migrate_db() {
   console.log(colors.green(" Start migrating Database..."));
@@ -57,17 +63,13 @@ function restart_app() {
       reject(error);
     });
 
-    exec("pm2 restart " + config["pm2 name app"], (error, stdout, stderr) => {
-      if (error) {
-        console.error("Erreur lors du redémarrage de l'application :", error);
+    restart()
+    .then(() => resolve())
+    .catch(reject());
 
-        reject(error);
-        return;
-      }
+    
 
-      console.log("Application redémarrée avec succès");
-      resolve();
-    });
+
   });
 }
 

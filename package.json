@@ -1,6 +1,6 @@
 {
   "name": "isis-cms",
-  "version": "3.9.34",
+  "version": "3.9.4",
   "main": "app.js",
   "scripts": {
     "test": "jest",
@@ -30,7 +30,8 @@
     "mysql-await": "^2.2.3",
     "mysql-import": "^5.0.26",
     "mysql2": "^3.2.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "pm2": "^5.3.1"
   },
   "repository": {
     "type": "git",
