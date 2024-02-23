@@ -11,6 +11,7 @@ const restart = new Promise((resolve, reject) => {
 
             if (err) {
                 reject(err)
+                console.error(err)
             }
             else {
                 resolve(proc)

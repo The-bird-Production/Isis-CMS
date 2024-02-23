@@ -21,7 +21,7 @@ async function migrate_db() {
 
   try {
     await migrate_knex.migrate.latest({
-      directory: "../migrations",
+      directory: "/migrations",
     });
     console.log(colors.green(" Database migrated successfully!"));
   } catch (error) {
@@ -63,7 +63,7 @@ function restart_app() {
       reject(error);
     });
 
-    restart()
+    restart
     .then(() => resolve())
     .catch(reject());
 
