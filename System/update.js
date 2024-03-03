@@ -10,6 +10,8 @@ const knex = require("knex");
 const knex_conf = require("../knexfile");
 const migrate_knex = knex(knex_conf.production);
 
+const downloadFile = require('../Functions/Download')
+
 //Process manager
 
 const restart = require("../Functions/RestartApp");
