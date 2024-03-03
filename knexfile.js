@@ -1,4 +1,4 @@
-const config = require('./config.json')
+const config = require('./config/db')
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
@@ -21,7 +21,7 @@ module.exports = {
     client: 'mysql',
     connection: {
       host: config.db_host,
-      user: config.db_user,
+      user: config.db_username,
       password: config.db_password,
       database: config.db_name
     },

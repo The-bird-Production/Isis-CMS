@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const { exec }  = require("child_process");
 const env = require("../var");
 const config = require("../config.json");
 const colors = require("colors/safe");
@@ -10,18 +10,16 @@ const knex = require("knex");
 const knex_conf = require("../knexfile");
 const migrate_knex = knex(knex_conf.production);
 
-//Process manager 
+//Process manager
 
-const restart = require('../Functions/RestartApp')
-
-
+const restart = require("../Functions/RestartApp");
 
 async function migrate_db() {
   console.log(colors.green(" Start migrating Database..."));
 
   try {
     await migrate_knex.migrate.latest({
-      directory: "/migrations",
+      directory: "../migrations",
     });
     console.log(colors.green(" Database migrated successfully!"));
   } catch (error) {
@@ -36,20 +34,18 @@ async function updateFiles() {
     const url =
       "https://update.isis-cms.thebirdproduction.fr/manager/version/download/" +
       config.update_key;
-    const response = await fetch(url);
-    if (response.status === 200) {
-      const arrayBuffer = await response.arrayBuffer();
-      const zip = new AdmZip(arrayBuffer);
-      zip.extractAllTo(env.dirname, true);
-      return;
-    } else {
-      throw new Error(
-        "Erreur lors du téléchargement du fichier de mise à jour : " +
-          response.statusText
-      );
-    }
+  
+    console.log("Downloading File");
+  
+    await downloadFile(url, env.dirname + "/update/temp.zip", "temp.zip");
+  
+    const zip = new AdmZip(env.dirname + "/update/temp.zip");
+    zip.extractAllTo(env.dirname, true);
+  
+    console.log("Files updated successfully");
   } catch (error) {
-    console.error(error);
+    console.error("Error updating files:", error);
+    
     throw error;
   }
 }
@@ -59,17 +55,14 @@ function restart_app() {
     exec("npm install", (error, stdout, stderr) => {
       if (error) {
         console.error("Erreur lors de l'installation des dépendances", error);
+        reject(error + "\n" + stderr);
+      } else {
+        restart()
+          .then(() => resolve())
+          .catch(reject());
+        console.log("Dependencies installed"+ stdout)
       }
-      reject(error);
     });
-
-    restart
-    .then(() => resolve())
-    .catch(reject());
-
-    
-
-
   });
 }
 

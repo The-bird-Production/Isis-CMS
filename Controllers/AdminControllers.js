@@ -12,7 +12,6 @@ const system_data = require("../System/ControlData");
 const path = require("path");
 const pkg = require("../package.json");
 
-const axios = require("axios");
 
 exports.admin = (req, res) => {
   data.get_number_of_docs((docs) => {
@@ -320,5 +319,5 @@ exports.update_start = (req, res) => {
   update
     .update()
     .then()
-    .catch(res.send("Une erreur c'est produite lors de la mis à jour "));
+    .catch(res.send(`Une erreur c'est produite lors de la mis à jour ${err}` ));
 };
