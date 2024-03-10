@@ -13,7 +13,8 @@ const themes = require(`../Themes/${config.theme}/theme.js`);
 router.get("/error", EventControllers.error);
 router.get("/success", EventControllers.success);
 
-router.get("/:page([a-z]+)", PageControllers.page);
+router.get("/:page([a-zA-Z0-9]+)", PageControllers.page);
+
 
 //Asset
 router.use((req, res, next) => {
