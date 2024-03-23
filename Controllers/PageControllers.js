@@ -5,85 +5,70 @@ const fs = require("fs");
 const themes = require(`../Themes/${config.theme}/theme.js`);
 
 exports.index = async (req, res) => {
-  let lang = req.langage;
+  const lang = req.langage;
+  const url = '/index';
 
-  const [result] = await db.awaitQuery(
-    'SELECT * FROM page WHERE url = "/index" AND lang = "' +
-      config.locales +
-      '"'
-  );
-  if (!result) {
-    //Verifiy if the theme file exist
-    if (typeof themes.index !== "undefined") {
-      res.render(themes.index, {
+  try {
+    const [result] = await db.awaitQuery(
+      'SELECT * FROM page WHERE url = ? AND lang = ?',
+      [url, lang]
+    );
+
+    if (!result) {
+      const themeFile = themes.index ? themes.index : env.dirname + '/App/error/404';
+
+      res.render(themeFile, {
         theme_header: themes.header,
       });
     } else {
-      res.render(env.dirname + "/App/error/404", {
+      const viewPath = result ? themes.view_path + '.ejs' : env.dirname + '/App/error/404';
+
+      res.render(viewPath, {
+        page: result,
         theme_header: themes.header,
       });
     }
-  } else {
-    //Check if index page exist in database
-    try {
-      const [result] = await db.awaitQuery(
-        'SELECT * FROM page WHERE url = "/index" AND lang = "' + lang + '"'
-      );
-
-      if (result) {
-        res.render(themes.view_path + ".ejs", {
-          page: result,
-          theme_header: themes.header,
-        });
-      } else {
-        res.status(404).render(env.dirname + "/App/error/404", {
-          theme_header: themes.header,
-        });
-      }
-    } catch (error) {
-      res
-        .status(503)
-        .send("Une erreur est survenue veuillez contater l'administrateur");
-        console.log(error)
-    }
+  } catch (error) {
+    console.error(error);
+    res.status(503).send("Une erreur est survenue veuillez contacter l'administrateur");
   }
 };
 
 exports.page = async (req, res) => {
-  let page = req.params.page;
-  let lang = req.langage;
+  const page = req.params.page;
+  const lang = req.langage;
 
-  console.log("is on the way " + page + " " + lang);
+  console.log(`is on the way ${page} ${lang}`);
 
   try {
     const [result] = await db.awaitQuery(
-      "SELECT * FROM page WHERE url = " + `"/${page}" AND lang = "${lang}"`
+      'SELECT * FROM page WHERE url = ? AND lang = ?',
+      [`/${page}`, lang]
     );
-    if (result) {
-      if (result.is_static === "false") {
-        console.log([result]);
 
-        res.render(themes.view_path + ".ejs", {
+    if (result) {
+      if (result.is_static === 'false') {
+        res.render(themes.view_path + '.ejs', {
           page: result,
           theme_header: themes.header,
         });
       } else {
-        var file = env.dirname + "/public/pages/" + result.url + ".html";
-
+        const file = env.dirname + '/public/pages/' + result.url + '.html';
         res.sendFile(file);
       }
+    } else {
+      res.redirect('/error/?title=404 : La page n\'existe pas&msg=Nous sommes désolés, la page n\'existe pas');
     }
   } catch (error) {
-    console.log("NEW ERROR IN PAGE CONTROLLER " + error + error.stack);
-    res.redirect(
-      "/error/?title=404 : La page n'existe pas&msg=Nous sommes désolés la page n'existe pas  "
-    );
+    console.error('NEW ERROR IN PAGE CONTROLLER:', error);
+    res.redirect('/error/?title=503 : Service non disponible&msg=Une erreur est survenue, veuillez réessayer plus tard');
   }
 };
 
+
 exports.robotDotTxt = (req, res) => {
-  if (fs.existsSync(env.dirname + "/robot.txt")) {
-    res.sendFile(env.dirname + "/robot.txt");
+  if (fs.existsSync(env.dirname + "/robots.txt")) {
+    res.sendFile(env.dirname + "/robots.txt");
   } else {
     res.send("Error No robot.txt").status(404);
   }

@@ -37,7 +37,7 @@ router.get("/test", (req, res) => {
   res.status(200);
 });
 
-router.get("/robot.txt", PageControllers.robotDotTxt);
+router.get("/Robots.txt", PageControllers.robotDotTxt);
 router.get("/sitemap.xml", PageControllers.sitemapDotXml);
 
 //Redirect
